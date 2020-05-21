@@ -167,10 +167,4 @@ local.properties
 *.DS_Store
 /catalina.home_IS_UNDEFINED/
 /**/catalina.home_IS_UNDEFINED/
-将删除 .idea/.gitignore
-将删除 .idea/fast-platform.iml
-将删除 .idea/inspectionProfiles/
-将删除 .idea/misc.xml
-将删除 .idea/modules.xml
-将删除 .idea/sonarlint/
-将删除 .idea/vcs.xml
+
