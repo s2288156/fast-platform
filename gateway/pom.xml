@@ -5,7 +5,7 @@
     <parent>
         <artifactId>fast-platform</artifactId>
         <groupId>com.fp</groupId>
-        <version>1.0.0-RELEASE</version>
+        <version>1.0.0.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -29,6 +29,10 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
