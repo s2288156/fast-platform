@@ -11,6 +11,7 @@
     <name>Fast Platform Parent</name>
     <modules>
         <module>gateway</module>
+        <module>mall</module>
     </modules>
 
     <properties>
