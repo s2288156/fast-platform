@@ -12,8 +12,9 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: validate
+  flyway:
+    clean-disabled: true  # 是否禁用数据库清理，默认false不禁用，危险操作，统一设置为true
 server:
   port: 8000
   servlet:
     context-path: /mall
-
