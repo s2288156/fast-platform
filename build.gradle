@@ -5,9 +5,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.example'
 version = '0.0.1'
-sourceCompatibility = '11'
 
 configurations {
     compileOnly {
@@ -20,6 +18,8 @@ allprojects {
     apply plugin: 'idea'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+    group = 'com.example'
+    sourceCompatibility = '11'
     repositories {
         maven { name "Alibaba"; url 'https://maven.aliyun.com/repository/public' }
     }
@@ -36,28 +36,33 @@ subprojects {
         testImplementation 'junit:junit'
         testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     }
-}
 
-
-ext {
-    set('snippetsDir', file("build/generated-snippets"))
-    set('springCloudAlibabaVersion', "2.2.1.RELEASE")
-    set('springCloudVersion', "Hoxton.SR4")
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    ext {
+        set('snippetsDir', file("build/generated-snippets"))
+        set('springCloudAlibabaVersion', "2.2.1.RELEASE")
+        set('springCloudVersion', "Hoxton.SR4")
     }
+
+    dependencyManagement {
+        imports {
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    test {
+        outputs.dir snippetsDir
+        useJUnitPlatform()
+    }
+
+    asciidoctor {
+        inputs.dir snippetsDir
+        dependsOn test
+    }
+
 }
 
-test {
-    outputs.dir snippetsDir
-    useJUnitPlatform()
-}
 
-asciidoctor {
-    inputs.dir snippetsDir
-    dependsOn test
-}
+
+
+
