@@ -13,26 +13,12 @@ configurations {
 
 allprojects {
     apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     repositories {
         maven { name "Alibaba"; url 'https://maven.aliyun.com/repository/public' }
     }
-}
 
-subprojects {
-    apply plugin: 'java'
-    group = 'com.fp'
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-    dependencies {
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
-        testImplementation('org.springframework.boot:spring-boot-starter-test') {
-            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        }
-        testImplementation 'junit:junit'
-        testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    }
 
     ext {
         set('snippetsDir', file("build/generated-snippets"))
@@ -56,12 +42,23 @@ subprojects {
         inputs.dir snippetsDir
         dependsOn test
     }
+}
 
+subprojects {
+    apply plugin: 'java'
+    group = 'com.fp'
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    dependencies {
+        compile 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
 }
 
 bootJar {
     mainClassName = 'com.fd.mall.MallApplication'
 }
-
-
-
