@@ -3,6 +3,9 @@ package com.fd.mall;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author wcy
+ */
 @SpringBootApplication
 public class MallApplication {
     public static void main(String[] args) {
