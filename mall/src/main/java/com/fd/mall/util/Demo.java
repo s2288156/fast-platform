@@ -7,6 +7,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Demo {
 
+    private Demo() {
+    }
+
     public static boolean isBlank(String str) {
         return StringUtils.isBlank(str);
     }
