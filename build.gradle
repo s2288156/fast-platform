@@ -62,3 +62,5 @@ subprojects {
 bootJar {
     mainClassName = 'com.fd.mall.MallApplication'
 }
+
+
