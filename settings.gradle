@@ -8,5 +8,4 @@
  */
 
 rootProject.name = 'fast-platform'
-include 'mall'
 include 'tool-lib'

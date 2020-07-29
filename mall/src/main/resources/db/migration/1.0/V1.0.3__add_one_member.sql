@@ -1,1 +1,0 @@
-insert into db_mall.member (id, create_time, update_time, user_name) value ('11', now(), now(), '老王');
