@@ -1,13 +1,14 @@
 # fast-platform
 
 #### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+
 
 #### 软件架构
-软件架构说明
 
+1. Gradle 6.5.x
+2. SpringBoot 2.3.x
+3. Mysql 8.0.x
+4. ORM SpringDataJpa
 
 #### 安装教程
 
@@ -17,9 +18,11 @@
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+构建打包命令：
+```shell script
+# 打包jar文件目标位置./build/libs/..
+./gradlew clean bootJar
+```
 
 #### 参与贡献
 
