@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: user
+  datasource:
+    url: jdbc:mysql://org.mysql.com:3306/db_user?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123123
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        enable_lazy_load_no_trans: true
