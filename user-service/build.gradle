@@ -1,0 +1,9 @@
+
+dependencies {
+    compile project(':user-dao')
+    compile project(':user-api')
+}
+
+bootJar {
+    enabled false
+}
