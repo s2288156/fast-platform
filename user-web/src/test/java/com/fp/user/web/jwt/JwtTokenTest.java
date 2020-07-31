@@ -1,5 +1,6 @@
 package com.fp.user.web.jwt;
 
+import com.fp.tool.util.CertUtil;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.RSASSASigner;
@@ -77,13 +78,11 @@ class JwtTokenTest {
     @Test
     void testJWS_RSA_File() {
         // 加载jks秘钥容器
-        KeyStore keyStore = KeyStore.getInstance("JKS");
-        String password = "123456";
-        keyStore.load(new ClassPathResource("jwt.jks").getInputStream(), password.toCharArray());
-
+        CertUtil certUtil = new CertUtil();
+        certUtil.initKeyStore("jwt.jks", "JKS", "123456");
         // 获取公私钥
-        PrivateKey priKey = getPriKey(keyStore, password);
-        RSAPublicKey pubKey = (RSAPublicKey) getPubKey(keyStore);
+        PrivateKey priKey = certUtil.getPriKey();
+        RSAPublicKey pubKey = (RSAPublicKey) certUtil.getPubKey();
 
         // 创建signer
         RSASSASigner signer = new RSASSASigner(priKey);
@@ -104,31 +103,4 @@ class JwtTokenTest {
 
     }
 
-    @SneakyThrows
-    private static PublicKey getPubKey(KeyStore keyStore) {
-        Enumeration<String> aliasenum = keyStore.aliases();
-        String keyAlias = null;
-        if (aliasenum.hasMoreElements()) {
-            keyAlias = aliasenum.nextElement();
-            if (keyStore.isKeyEntry(keyAlias)) {
-                X509Certificate x509Certificate = (X509Certificate) keyStore.getCertificate(keyAlias);
-                PublicKey publicKey = x509Certificate.getPublicKey();
-                return publicKey;
-            }
-        }
-        return null;
-    }
-
-    @SneakyThrows
-    public static PrivateKey getPriKey(KeyStore keyStore, String password) {
-        Enumeration<String> aliasenum = keyStore.aliases();
-        if (aliasenum.hasMoreElements()) {
-            String keyAlias = aliasenum.nextElement();
-            if (keyStore.isKeyEntry(keyAlias)) {
-                PrivateKey privateKey = (PrivateKey) keyStore.getKey(keyAlias, password.toCharArray());
-                return privateKey;
-            }
-        }
-        return null;
-    }
 }
