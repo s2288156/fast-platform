@@ -24,6 +24,7 @@ allprojects {
         set('snippetsDir', file("build/generated-snippets"))
         set('springCloudAlibabaVersion', "2.2.1.RELEASE")
         set('springCloudVersion', "Hoxton.SR4")
+        set('nimbusJoseJwtVersion', '8.19')
     }
 
     dependencyManagement {

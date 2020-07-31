@@ -4,6 +4,11 @@ dependencies {
     compile project(':user-service')
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.flywaydb:flyway-core'
+    implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseJwtVersion}"
+}
+
+test {
+    useJUnitPlatform()
 }
 
 bootJar {
