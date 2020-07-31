@@ -9,9 +9,16 @@ import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
 
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
+import java.util.Enumeration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,7 +52,6 @@ class JwtTokenTest {
     void testJWS_RSA() {
         RSAKey rsaJWK = new RSAKeyGenerator(2048).keyID("123").generate();
         RSAKey rsaPublicJWK = rsaJWK.toPublicJWK();
-
         RSASSASigner signer = new RSASSASigner(rsaJWK);
 
         String content = "In RSA we trust!";
@@ -65,5 +71,64 @@ class JwtTokenTest {
         RSASSAVerifier verifier = new RSASSAVerifier(rsaPublicJWK);
         assertTrue(parseJwsObject.verify(verifier));
         assertEquals(content, parseJwsObject.getPayload().toString());
+    }
+
+    @SneakyThrows
+    @Test
+    void testJWS_RSA_File() {
+        // 加载jks秘钥容器
+        KeyStore keyStore = KeyStore.getInstance("JKS");
+        String password = "123456";
+        keyStore.load(new ClassPathResource("jwt.jks").getInputStream(), password.toCharArray());
+
+        // 获取公私钥
+        PrivateKey priKey = getPriKey(keyStore, password);
+        RSAPublicKey pubKey = (RSAPublicKey) getPubKey(keyStore);
+
+        // 创建signer
+        RSASSASigner signer = new RSASSASigner(priKey);
+
+        JWSObject jwsObject = new JWSObject(
+                new JWSHeader.Builder(JWSAlgorithm.RS256).build(),
+                new Payload("hello RSA in jws!")
+        );
+        jwsObject.sign(signer);
+        String token = jwsObject.serialize();
+        log.warn("{}", token);
+
+        RSASSAVerifier verifier = new RSASSAVerifier(pubKey);
+        JWSObject parseJwsObject = JWSObject.parse(token);
+        boolean verify = parseJwsObject.verify(verifier);
+        assertTrue(verify);
+        log.warn("{}", parseJwsObject.getPayload().toString());
+
+    }
+
+    @SneakyThrows
+    private static PublicKey getPubKey(KeyStore keyStore) {
+        Enumeration<String> aliasenum = keyStore.aliases();
+        String keyAlias = null;
+        if (aliasenum.hasMoreElements()) {
+            keyAlias = aliasenum.nextElement();
+            if (keyStore.isKeyEntry(keyAlias)) {
+                X509Certificate x509Certificate = (X509Certificate) keyStore.getCertificate(keyAlias);
+                PublicKey publicKey = x509Certificate.getPublicKey();
+                return publicKey;
+            }
+        }
+        return null;
+    }
+
+    @SneakyThrows
+    public static PrivateKey getPriKey(KeyStore keyStore, String password) {
+        Enumeration<String> aliasenum = keyStore.aliases();
+        if (aliasenum.hasMoreElements()) {
+            String keyAlias = aliasenum.nextElement();
+            if (keyStore.isKeyEntry(keyAlias)) {
+                PrivateKey privateKey = (PrivateKey) keyStore.getKey(keyAlias, password.toCharArray());
+                return privateKey;
+            }
+        }
+        return null;
     }
 }
