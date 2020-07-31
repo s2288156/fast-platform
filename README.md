@@ -2,6 +2,7 @@
 
 #### 介绍
 
+![](https://imgkr2.cn-bj.ufileos.com/8a312123-9219-46fb-96ed-39a961875755.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=F%2FDacd6jCoyTjv1yw6SLcDVk0qw%3D&Expires=1596265574)
 
 #### 软件架构
 
