@@ -3,23 +3,20 @@ package com.fp.user.web.jwt;
 import com.fp.tool.util.CertUtil;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.core.io.ClassPathResource;
 
-import java.security.KeyStore;
 import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
-import java.util.Enumeration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JwtTokenTest {
 
     @SneakyThrows
+    @DisplayName("NATIVE_JWS_HMAC")
     @Test
     void testGenerateTokenByHMAC() {
         JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256)
@@ -39,16 +37,22 @@ class JwtTokenTest {
         byte[] shareKey = new byte[32];
         new SecureRandom().nextBytes(shareKey);
         log.warn("shareKey = {}", Base64.getEncoder().encodeToString(shareKey));
-        log.warn("shareKey = {}", Base64.getEncoder().encodeToString(shareKey));
-        log.warn("shareKey = {}", Base64.getEncoder().encodeToString(shareKey));
         Payload payload = new Payload(payloadStr);
         JWSObject jwsObject = new JWSObject(jwsHeader, payload);
         JWSSigner jwsSigner = new MACSigner(shareKey);
         jwsObject.sign(jwsSigner);
-        log.warn("{}", jwsObject.serialize());
+        String token = jwsObject.serialize();
+        log.warn("{}", token);
+
+        JWSVerifier verifier = new MACVerifier(shareKey);
+        JWSObject parseJwsObject = JWSObject.parse(token);
+        assertTrue(parseJwsObject.verify(verifier));
+        assertEquals(payloadStr, parseJwsObject.getPayload().toString());
+        log.warn("{}", parseJwsObject.getPayload().toString());
     }
 
     @SneakyThrows
+    @DisplayName("NATIVE_JWS_RSA")
     @Test
     void testJWS_RSA() {
         RSAKey rsaJWK = new RSAKeyGenerator(2048).keyID("123").generate();
@@ -75,6 +79,7 @@ class JwtTokenTest {
     }
 
     @SneakyThrows
+    @DisplayName("JWS_RSA_FOR_JKS_FILE")
     @Test
     void testJWS_RSA_File() {
         // 加载jks秘钥容器
