@@ -1,13 +1,14 @@
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` VARCHAR(32) NOT NULL,
-  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `username` VARCHAR(16) NOT NULL,
-  `email` VARCHAR(255) NULL DEFAULT NULL,
-  `password` VARCHAR(32) NOT NULL,
-  `phone` VARCHAR(15) NULL DEFAULT NULL,
-  `name` VARCHAR(45) NULL DEFAULT NULL COMMENT '姓名',
-  `age` TINYINT(1) UNSIGNED NULL DEFAULT NULL COMMENT '年龄',
-  `sex` TINYINT(1) UNSIGNED NULL DEFAULT NULL COMMENT '0 - 男，1 - 女',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+CREATE TABLE `user`  (
+  `id` varchar(32) NOT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `username` varchar(32) NULL,
+  `email` varchar(255) NULL,
+  `password` varchar(64) NOT NULL,
+  `phone` varchar(15) NULL,
+  `name` varchar(45) NULL,
+  `age` tinyint(1) UNSIGNED NULL,
+  `sex` tinyint(1) UNSIGNED NULL,
+  PRIMARY KEY (`id`)
+);
+

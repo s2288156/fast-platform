@@ -38,14 +38,14 @@ public class UserDO extends BaseEntity {
     /**
      * 年龄
      **/
-    @Column(columnDefinition = "TINYINT", length = 1)
+    @Column(columnDefinition = "tinyint(1)")
     private Integer age;
 
     /**
      * 0 - 男，1 - 女
      **/
     @Enumerated
-    @Column(columnDefinition = "TINYINT", length = 1)
+    @Column(columnDefinition = "tinyint(1)")
     private SexEnum sex;
 
 }
