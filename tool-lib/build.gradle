@@ -23,11 +23,11 @@ bootJar {
 uploadArchives  {
     repositories {
         mavenDeployer {
-            repository(url: "https://repo.rdc.aliyun.com/repository/37313-release-LcooP1/") {
-                authentication(userName: "ruJIke", password: "jSLJ5jSkM7")
+            repository(url: "${releaseUrl}") {
+                authentication(userName: "${username}", password: "${password}")
             }
-            snapshotRepository(url: "https://repo.rdc.aliyun.com/repository/37313-snapshot-PsuKsX/") {
-                authentication(userName: "ruJIke", password: "jSLJ5jSkM7")
+            snapshotRepository(url: "${snapshotUrl}") {
+                authentication(userName: "${username}", password: "${password}")
             }
             pom.project {
                 version = "$version"
