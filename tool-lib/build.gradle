@@ -1,3 +1,7 @@
+apply plugin: 'maven'
+
+version = '1.0.0'
+
 dependencies {
     compile 'org.apache.commons:commons-lang3'
     implementation 'com.fasterxml.jackson.core:jackson-annotations'
@@ -14,4 +18,22 @@ jar {
 
 bootJar {
     enabled false
+}
+
+uploadArchives  {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://repo.rdc.aliyun.com/repository/37313-release-LcooP1/") {
+                authentication(userName: "ruJIke", password: "jSLJ5jSkM7")
+            }
+            snapshotRepository(url: "https://repo.rdc.aliyun.com/repository/37313-snapshot-PsuKsX/") {
+                authentication(userName: "ruJIke", password: "jSLJ5jSkM7")
+            }
+            pom.project {
+                version = "$version"
+                artifactId = "$archivesBaseName"
+                groupId = "$project.group"
+            }
+        }
+    }
 }
