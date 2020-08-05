@@ -1,7 +1,7 @@
 
 dependencies {
-    implementation project(':user-dao')
-    implementation project(':user-api')
+    compile project(':user-dao')
+    compile project(':user-api')
 }
 test {
     useJUnitPlatform()

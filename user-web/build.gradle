@@ -8,9 +8,9 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform() {
-    }
+    useJUnitPlatform()
 }
+jar.enabled=true
 
 bootJar {
     enabled true
