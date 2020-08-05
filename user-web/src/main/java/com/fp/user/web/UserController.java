@@ -1,7 +1,9 @@
 package com.fp.user.web;
 
 import com.fp.user.api.IUserService;
+import com.fp.user.web.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author wcy
  */
-@RequestMapping("/user")
+@RequestMapping
 @RestController
 public class UserController {
 
@@ -18,7 +20,12 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping("/{id}")
-    public String findUserName(@PathVariable String id) {
-        return userService.getUserName(id);
+    public ResponseEntity<UserVO> findUserName(@PathVariable String id) {
+        String userName = userService.getUserName(id);
+        UserVO userVO = new UserVO();
+        userVO.setUsername(userName);
+
+        return ResponseEntity.ok(userVO);
     }
+
 }
