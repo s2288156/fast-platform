@@ -57,6 +57,10 @@ allprojects {
 ```shell script
 # 打包jar文件目标位置./build/libs/..
 ./gradlew clean bootJar
+# 杀掉进程
+ps -ef | grep user-web.jar | grep -v grep | awk '{print $2}' | xargs kill -15
+# 后台启动
+nohup java -jar -Dserver.port=12000 .\user-web\build\libs\user-web.jar > /dev/null &
 ```
 
 #### 参与贡献

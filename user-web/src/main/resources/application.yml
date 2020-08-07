@@ -13,9 +13,12 @@ spring:
         show_sql: true
         format_sql: true
         enable_lazy_load_no_trans: true
+  lifecycle:
+    timeout-per-shutdown-phase: 15s # kill程序后15s后再停止程序，此过程中不会接收新的请求
   jackson:
     default-property-inclusion: non_null
 server:
   port: 18000
   servlet:
     context-path: /user
+  shutdown: graceful # graceful优雅的关机， immediate 立即停止
