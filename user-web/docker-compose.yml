@@ -4,7 +4,7 @@ services:
   user-web-1:
     build: .
     ports:
-      - "18000:18000"
+      - "20000:18000"
     command: ["java", "-jar", "-Dserver.port=18000", "user-web.jar"]
 #  user-web-2:
 #    build: .
