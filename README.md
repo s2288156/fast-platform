@@ -57,10 +57,21 @@ allprojects {
 ```shell script
 # 打包jar文件目标位置./build/libs/..
 ./gradlew clean bootJar
+
+# =============== linux服务器启动 =============
 # 杀掉进程
 ps -ef | grep user-web.jar | grep -v grep | awk '{print $2}' | xargs kill -15
 # 后台启动
 nohup java -jar -Dserver.port=12000 .\user-web\build\libs\user-web.jar > /dev/null &
+
+# ================ docker启动 ================
+# 启动
+docker-compose up -d
+# 停止并删除容器
+docker-compose down
+# 删除文件中未定义的容器
+docker-compose down --remove-orphans
+
 ```
 
 #### 参与贡献
