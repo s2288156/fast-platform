@@ -8,12 +8,12 @@ public class SysException extends RuntimeException {
 
     private final String code;
 
-    public SysException(IResultCode<?, String, String> errorEnum) {
+    public SysException(IResultCode<String, String> errorEnum) {
         super(errorEnum.msg());
         this.code = errorEnum.code();
     }
 
-    public SysException(IResultCode<?, String, String> errorEnum, String msg) {
+    public SysException(IResultCode<String, String> errorEnum, String msg) {
         super(msg);
         this.code = errorEnum.code();
     }

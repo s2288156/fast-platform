@@ -8,12 +8,12 @@ public class BizException extends RuntimeException {
 
     private final String code;
 
-    public BizException(IResultCode<?, String, String> errorEnum) {
+    public BizException(IResultCode<String, String> errorEnum) {
         super(errorEnum.msg());
         this.code = errorEnum.code();
     }
 
-    public BizException(IResultCode<?, String, String> errorEnum, String msg) {
+    public BizException(IResultCode<String, String> errorEnum, String msg) {
         super(msg);
         this.code = errorEnum.code();
     }

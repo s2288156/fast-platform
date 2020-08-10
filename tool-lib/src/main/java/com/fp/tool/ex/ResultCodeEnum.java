@@ -3,7 +3,7 @@ package com.fp.tool.ex;
 /**
  * @author wcy
  */
-public enum ResultCodeEnum implements IResultCode<ResultCodeEnum, String, String> {
+public enum ResultCodeEnum implements IResultCode<String, String> {
     /**
      * 错误码列表，共5位：错误产生来源 + 四位数字编号，四位数字从0001~9999，大类之间步长100<br>
      * 错误产生来源(A/B/C)：
@@ -27,11 +27,6 @@ public enum ResultCodeEnum implements IResultCode<ResultCodeEnum, String, String
     ResultCodeEnum(String code, String msg) {
         this.code = code;
         this.msg = msg;
-    }
-
-    @Override
-    public ResultCodeEnum get() {
-        return this;
     }
 
     @Override
