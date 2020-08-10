@@ -20,12 +20,17 @@
 ```shell script
 
 # =============== linux服务器启动 =============
+# 打包指定子模块，并处理相关依赖
+mvn clean package -pl user-web -am
 # 杀掉进程
 ps -ef | grep user-web.jar | grep -v grep | awk '{print $2}' | xargs kill -15
 # 后台启动
 nohup java -jar -Dserver.port=12000 .\user-web\build\libs\user-web.jar > /dev/null &
 
 # ================ docker启动 ================
+
+# 重新构建镜像
+docker-compose build
 # 启动
 docker-compose up -d
 # 停止并删除容器
