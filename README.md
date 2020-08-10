@@ -6,57 +6,18 @@
 
 #### 软件架构
 
-1. Gradle 6.5.x
+1. Maven 3.6.x
 2. SpringBoot 2.3.x
 3. Mysql 8.0.x
 4. ORM SpringDataJpa
 
 #### 安装教程
 
-##### 本地gradle配置
-
-需要在`$USERHOME/.gradle`文件夹下创建一个`init.gradle`文件，文件中定义了中央仓库使用阿里镜像源，以及私人仓库地址
-```gradle
-allprojects {
-
-    ext {
-        // 如果不进行jar包推送到中央仓库操作，username、password不为空即可
-        set('releaseUrl', 'https://repo.rdc.aliyun.com/repository/37313-release-LcooP1/')
-        set('snapshotUrl', 'https://repo.rdc.aliyun.com/repository/37313-snapshot-PsuKsX/')
-        set('username', "用户名")
-        set('password', '密码')
-    }    
-
-    repositories {
-        maven {
-            url 'https://maven.aliyun.com/repository/public'
-        }
-
-        maven {
-            credentials {
-                username "${username}"
-                password "${password}"
-            }
-            url "${releaseUrl}"
-        }
-        maven {
-            credentials {
-                username "${username}"
-                password "${password}"
-            }
-            url "${snapshotUrl}"
-        }
-    }
-}
-
-```
 
 #### 使用说明
 
 构建打包命令：
 ```shell script
-# 打包jar文件目标位置./build/libs/..
-./gradlew clean bootJar
 
 # =============== linux服务器启动 =============
 # 杀掉进程
