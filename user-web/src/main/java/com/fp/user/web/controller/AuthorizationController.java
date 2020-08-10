@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 用户账户登录、授权、退出等操作
+ * 用户账户登录、授权、退出等操作g
  * @author wcy
  */
 @Slf4j
