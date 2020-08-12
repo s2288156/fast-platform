@@ -16,6 +16,7 @@ public enum ResultCodeEnum implements IResultCode<String, String> {
     USER_ERROR("A0001", "用户端错误"),
     USER_REGISTER_ERROR("A0100", "用户注册错误"),
     USERNAME_EXISTS("A0111", "用户名已存在"),
+    USER_LOGIN_ERROR("A0200", "用户登录异常"),
     // 一级宏观错误码
     SYS_EXECUTE_ERROR("B0001", "系统执行出错"),
     // 二级宏观错误码

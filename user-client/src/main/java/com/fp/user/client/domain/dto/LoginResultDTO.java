@@ -11,5 +11,26 @@ import java.io.Serializable;
 public class LoginResultDTO implements Serializable {
     private static final long serialVersionUID = 6436665685012708396L;
 
-    private String token;
+    private String username;
+
+    private String email;
+
+    private String password;
+
+    private String phone;
+
+    /**
+     * 姓名
+     **/
+    private String name;
+
+    /**
+     * 年龄
+     **/
+    private Integer age;
+
+    /**
+     * 性别
+     **/
+    private String sex;
 }

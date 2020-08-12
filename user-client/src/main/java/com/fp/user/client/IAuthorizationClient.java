@@ -3,12 +3,13 @@ package com.fp.user.client;
 import com.fp.user.client.domain.dto.LoginDTO;
 import com.fp.user.client.domain.dto.LoginResultDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author wcy
  */
-@FeignClient(name = "${spring.application.name}")
+@FeignClient(name = "user", path = "/user")
 public interface IAuthorizationClient {
 
     /**
@@ -17,6 +18,6 @@ public interface IAuthorizationClient {
      * @param loginDTO request
      * @return response
      */
-    @GetMapping("/login")
-    LoginResultDTO login(LoginDTO loginDTO);
+    @PostMapping("/login")
+    LoginResultDTO login(@RequestBody LoginDTO loginDTO);
 }

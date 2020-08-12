@@ -30,7 +30,12 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
         userDO.setUsername(userQuery.getUsername());
         userDO.setPassword(userQuery.getPassword());
         Optional<UserDO> optionalUserDO = userRepository.findOne(Example.of(userDO));
-        return null;
+        if (optionalUserDO.isPresent()) {
+            UserBO userBO = new UserBO();
+            BeanUtils.copyProperties(optionalUserDO.get(), userBO);
+            return userBO;
+        }
+        throw new BizException(ResultCodeEnum.USER_LOGIN_ERROR);
     }
 
     @Override
