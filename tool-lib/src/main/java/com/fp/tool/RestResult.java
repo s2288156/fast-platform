@@ -2,12 +2,14 @@ package com.fp.tool;
 
 import com.fp.tool.ex.IResultCode;
 import com.fp.tool.ex.ResultCodeEnum;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * @author wcy
  */
+@Data
 public class RestResult<T> implements Serializable {
     private static final long serialVersionUID = -6614763960648586816L;
 

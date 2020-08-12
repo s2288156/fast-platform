@@ -1,6 +1,6 @@
 package com.fp.user.dao.dataobject;
 
-import com.fp.user.dao.enums.SexEnum;
+import com.fp.user.common.enums.SexEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
 

@@ -15,6 +15,7 @@ public enum ResultCodeEnum implements IResultCode<String, String> {
     // 一级宏观错误码
     A0001("A0001", "用户端错误"),
     A0100("A0100", "用户注册错误"),
+    A0111("A0111", "用户名已存在"),
     // 一级宏观错误码
     B0001("B0001", "系统执行出错"),
     // 二级宏观错误码

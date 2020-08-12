@@ -29,6 +29,12 @@
             <artifactId>tool-lib</artifactId>
             <version>${tool-lib.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.fp</groupId>
+            <artifactId>user-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -9,6 +9,7 @@
         <module>user-dao</module>
         <module>user-service</module>
         <module>user-web</module>
+        <module>user-common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

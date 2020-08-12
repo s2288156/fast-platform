@@ -1,10 +1,16 @@
 package com.fp.user.service;
 
 import com.fp.user.api.IUserService;
+import com.fp.user.api.domain.query.UserQuery;
+import com.fp.user.dao.dataobject.UserDO;
+import com.fp.user.dao.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,14 +24,16 @@ class UserServiceImplTest {
     @Autowired
     private IUserService userService;
 
-    @Test
-    void getUserName() {
-        log.info(">>>>>>>>>>>>>>>>>> testGetUserName");
-        String userName = userService.getUserName("319648562566664192");
-        assertNotNull(userName);
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
-    void addUser() {
+    void testOne() {
+        UserDO userQuery = new UserDO();
+        userQuery.setUsername("zhangsan");
+        userQuery.setPassword("123456");
+        Optional<UserDO> one = userRepository.findOne(Example.of(userQuery));
+        assertTrue(one.isPresent());
+        log.info("{}", one.get());
     }
 }

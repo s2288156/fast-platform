@@ -1,4 +1,4 @@
-package com.fp.user.dao.enums;
+package com.fp.user.common.enums;
 
 /**
  * @author wcy
