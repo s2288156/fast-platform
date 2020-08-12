@@ -1,7 +1,7 @@
 package com.fp.user.web;
 
 import com.fp.user.api.IUserService;
-import com.fp.user.web.vo.UserVO;
+import com.fp.user.web.domain.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

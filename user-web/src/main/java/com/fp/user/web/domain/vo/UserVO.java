@@ -1,5 +1,6 @@
-package com.fp.user.web.vo;
+package com.fp.user.web.domain.vo;
 
+import com.fp.user.web.domain.BaseVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

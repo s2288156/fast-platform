@@ -1,4 +1,4 @@
-package com.fp.user.web.vo;
+package com.fp.user.web.domain;
 
 import lombok.Data;
 
