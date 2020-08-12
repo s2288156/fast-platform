@@ -26,11 +26,11 @@ public class RestResult<T> implements Serializable {
     }
 
     public static <T> RestResult<T> success() {
-        return build(ResultCodeEnum.OK, null);
+        return build(ResultCodeEnum.SUCCESS, null);
     }
 
     public static <T> RestResult<T> success(T data) {
-        return build(ResultCodeEnum.OK, data);
+        return build(ResultCodeEnum.SUCCESS, data);
     }
 
     public static <T> RestResult<T> error(IResultCode<String, String> resultCode) {

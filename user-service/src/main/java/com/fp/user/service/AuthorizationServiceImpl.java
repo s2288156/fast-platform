@@ -36,7 +36,7 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
     @Override
     public UserDTO register(UserDTO userDTO) {
         if (userRepository.existsByUsername(userDTO.getUsername())) {
-            throw new BizException(ResultCodeEnum.A0111);
+            throw new BizException(ResultCodeEnum.USERNAME_EXISTS);
         }
         UserDO userDO = new UserDO();
         BeanUtils.copyProperties(userDTO, userDO);

@@ -11,15 +11,15 @@ public enum ResultCodeEnum implements IResultCode<String, String> {
      * <p>- B表示来源于当前系统，比如业务逻辑错误、代码健壮性不足；</p>
      * <p>- C表示错误来源于第三方，比如CDN服务出错，超时等</p>
      */
-    OK("00000", "一切ok"),
+    SUCCESS("00000", "成功"),
     // 一级宏观错误码
-    A0001("A0001", "用户端错误"),
-    A0100("A0100", "用户注册错误"),
-    A0111("A0111", "用户名已存在"),
+    USER_ERROR("A0001", "用户端错误"),
+    USER_REGISTER_ERROR("A0100", "用户注册错误"),
+    USERNAME_EXISTS("A0111", "用户名已存在"),
     // 一级宏观错误码
-    B0001("B0001", "系统执行出错"),
+    SYS_EXECUTE_ERROR("B0001", "系统执行出错"),
     // 二级宏观错误码
-    B0100("B0100", "系统执行超时");
+    SYS_EXECUTE_TIMEOUT("B0100", "系统执行超时");
 
     private String code;
 
