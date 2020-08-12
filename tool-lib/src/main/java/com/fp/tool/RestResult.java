@@ -37,6 +37,10 @@ public class RestResult<T> implements Serializable {
         return build(resultCode, null);
     }
 
+    public static <T> RestResult<T> error(String returnCode, String returnMsg) {
+        return new RestResult<>(returnCode, returnMsg, null);
+    }
+
     private static <T> RestResult<T> build(IResultCode<String, String> resultCode, T data) {
         return new RestResult<>(resultCode.code(), resultCode.msg(), data);
     }

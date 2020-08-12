@@ -1,8 +1,11 @@
 package com.fp.tool.ex;
 
+import lombok.Getter;
+
 /**
  * @author wcy
  */
+@Getter
 public class SysException extends RuntimeException {
     private static final long serialVersionUID = -5496308092178328679L;
 
