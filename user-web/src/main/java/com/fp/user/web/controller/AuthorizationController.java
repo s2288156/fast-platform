@@ -35,4 +35,5 @@ public class AuthorizationController {
         authorizationService.register(userDTO);
         return RestResult.success();
     }
+    
 }
