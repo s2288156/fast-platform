@@ -10,6 +10,9 @@
 2. SpringBoot 2.3.x
 3. Mysql 8.0.x
 4. ORM SpringDataJpa
+5. 网关 [Spring-cloud-gateway](https://docs.spring.io/spring-cloud-gateway/docs/2.2.4.RELEASE/reference/html/#gateway-starter)
+6. 注册中心 [Nacos 1.3.2](https://nacos.io/zh-cn/docs/what-is-nacos.html)
+7. 微服务调用 [OpenFeign](https://docs.spring.io/spring-cloud-openfeign/docs/2.2.4.RELEASE/reference/html/)
 
 #### 安装教程
 
@@ -56,3 +59,4 @@ docker-compose down --remove-orphans
 4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
 5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
 6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
