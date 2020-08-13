@@ -1,9 +1,10 @@
-package com.fp.user.web.exception;
+package com.fp.sso.exception;
 
 import com.fp.tool.RestResult;
 import com.fp.tool.ex.BizException;
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.ex.SysException;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author wcy
@@ -37,6 +40,12 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception ex) {
         log.error("[UnknownException]: ", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(RestResult.error(ResultCodeEnum.SYS_EXECUTE_ERROR));
+    }
+
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<?> handleFeignException(FeignException ex) {
+        log.error("feign调用异常: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(RestResult.error(ResultCodeEnum.SYS_EXECUTE_ERROR));
     }
 

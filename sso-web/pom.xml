@@ -34,6 +34,12 @@
 
         <dependency>
             <groupId>com.fp</groupId>
+            <artifactId>tool-lib</artifactId>
+            <version>${tool-lib.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fp</groupId>
             <artifactId>user-client</artifactId>
             <version>1.0.0</version>
         </dependency>
