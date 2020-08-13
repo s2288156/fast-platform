@@ -4,4 +4,4 @@ WORKDIR /code
 
 COPY ./target/user-web-1.0.0.jar /code/
 
-CMD ["java", "-jar", "user-web.jar"]
+CMD ["java", "-jar", "user-web-1.0.0.jar"]
