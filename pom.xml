@@ -12,6 +12,7 @@
         <module>user-common</module>
         <module>sso-web</module>
         <module>user-client</module>
+        <module>gateway</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
