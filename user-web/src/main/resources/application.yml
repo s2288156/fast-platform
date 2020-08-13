@@ -2,7 +2,7 @@ spring:
   application:
     name: user
   datasource:
-    url: jdbc:mysql://org.mysql.com:3306/db_user?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://org.local.com:3306/db_user?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123123
   jpa:
@@ -20,7 +20,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: org.local.com:8848
 server:
   port: 18000
   servlet:
