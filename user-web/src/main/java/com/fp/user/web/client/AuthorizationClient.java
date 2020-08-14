@@ -24,7 +24,7 @@ public class AuthorizationClient implements IAuthorizationClient {
 
     @PostMapping("/login")
     @Override
-    public RestResult<LoginResultDTO> login(@Validated LoginDTO loginDTO) {
+    public LoginResultDTO login(@Validated LoginDTO loginDTO) {
         UserQuery userQuery = new UserQuery();
         BeanUtils.copyProperties(loginDTO, userQuery);
 
@@ -32,6 +32,6 @@ public class AuthorizationClient implements IAuthorizationClient {
         userBO = authorizationService.login(userQuery);
         LoginResultDTO loginResultDTO = new LoginResultDTO();
         BeanUtils.copyProperties(userBO, loginResultDTO);
-        return RestResult.success(loginResultDTO);
+        return loginResultDTO;
     }
 }

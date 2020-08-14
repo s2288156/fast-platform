@@ -7,6 +7,7 @@ import com.fp.tool.ex.SysException;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -44,7 +45,15 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(FeignException.class)
     public ResponseEntity<?> handleFeignException(FeignException ex) {
         log.error("feign调用异常: {}", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(RestResult.error(ResultCodeEnum.SYS_EXECUTE_ERROR));
+        if (ex.responseBody().isPresent()) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new String(ex.responseBody().get().array()));
+        }
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(RestResult.error(ResultCodeEnum.SYS_EXECUTE_ERROR));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

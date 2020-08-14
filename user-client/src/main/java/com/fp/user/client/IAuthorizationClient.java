@@ -1,6 +1,5 @@
 package com.fp.user.client;
 
-import com.fp.tool.RestResult;
 import com.fp.user.client.domain.dto.LoginDTO;
 import com.fp.user.client.domain.dto.LoginResultDTO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -20,5 +19,5 @@ public interface IAuthorizationClient {
      * @return response
      */
     @PostMapping("/login")
-    RestResult<LoginResultDTO> login(@RequestBody LoginDTO loginDTO);
+    LoginResultDTO login(@RequestBody LoginDTO loginDTO);
 }

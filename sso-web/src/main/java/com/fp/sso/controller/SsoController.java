@@ -18,8 +18,8 @@ public class SsoController {
     private IAuthorizationClient authorizationClient;
 
     @PostMapping("/login")
-    RestResult<?> login(LoginDTO loginDTO) {
-        return authorizationClient.login(loginDTO);
+    RestResult<LoginResultDTO> login(LoginDTO loginDTO) {
+        return RestResult.success(authorizationClient.login(loginDTO));
     }
 
 }
