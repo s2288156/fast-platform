@@ -2,11 +2,13 @@ package com.fp.tool.ex;
 
 import lombok.Getter;
 
+import java.io.Serializable;
+
 /**
  * @author wcy
  */
 @Getter
-public class BizException extends RuntimeException {
+public class BizException extends RuntimeException implements Serializable {
     private static final long serialVersionUID = -5496308092178328679L;
 
     private final String code;

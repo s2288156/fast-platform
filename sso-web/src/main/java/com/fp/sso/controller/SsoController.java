@@ -1,5 +1,6 @@
 package com.fp.sso.controller;
 
+import com.fp.tool.RestResult;
 import com.fp.user.client.IAuthorizationClient;
 import com.fp.user.client.domain.dto.LoginDTO;
 import com.fp.user.client.domain.dto.LoginResultDTO;
@@ -17,7 +18,7 @@ public class SsoController {
     private IAuthorizationClient authorizationClient;
 
     @PostMapping("/login")
-    LoginResultDTO login(LoginDTO loginDTO) {
+    RestResult<?> login(LoginDTO loginDTO) {
         return authorizationClient.login(loginDTO);
     }
 

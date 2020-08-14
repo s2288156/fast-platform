@@ -13,6 +13,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.fp</groupId>
             <artifactId>user-api</artifactId>
             <version>1.0.0</version>

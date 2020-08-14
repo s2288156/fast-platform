@@ -1,5 +1,6 @@
 package com.fp.user.api;
 
+import com.fp.tool.ex.BizException;
 import com.fp.user.api.domain.bo.UserBO;
 import com.fp.user.api.domain.dto.UserDTO;
 import com.fp.user.api.domain.query.UserQuery;

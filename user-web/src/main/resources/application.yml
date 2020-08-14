@@ -21,6 +21,10 @@ spring:
     nacos:
       discovery:
         server-addr: org.local.com:8848
+  security:
+    user:
+      name: admin
+      password: 123123
 server:
   port: 18000
   servlet:

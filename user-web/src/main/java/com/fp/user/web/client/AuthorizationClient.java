@@ -1,5 +1,6 @@
 package com.fp.user.web.client;
 
+import com.fp.tool.RestResult;
 import com.fp.user.api.IAuthorizationService;
 import com.fp.user.api.domain.bo.UserBO;
 import com.fp.user.api.domain.query.UserQuery;
@@ -23,13 +24,14 @@ public class AuthorizationClient implements IAuthorizationClient {
 
     @PostMapping("/login")
     @Override
-    public LoginResultDTO login(@Validated LoginDTO loginDTO) {
+    public RestResult<LoginResultDTO> login(@Validated LoginDTO loginDTO) {
         UserQuery userQuery = new UserQuery();
         BeanUtils.copyProperties(loginDTO, userQuery);
 
-        UserBO userBO = authorizationService.login(userQuery);
+        UserBO userBO = null;
+        userBO = authorizationService.login(userQuery);
         LoginResultDTO loginResultDTO = new LoginResultDTO();
         BeanUtils.copyProperties(userBO, loginResultDTO);
-        return loginResultDTO;
+        return RestResult.success(loginResultDTO);
     }
 }

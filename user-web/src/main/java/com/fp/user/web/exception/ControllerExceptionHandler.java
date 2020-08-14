@@ -19,7 +19,7 @@ import java.util.List;
  * @author wcy
  */
 @Slf4j
-@RestControllerAdvice
+@RestControllerAdvice({"com.fp.user.web.controller"})
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(BizException.class)
