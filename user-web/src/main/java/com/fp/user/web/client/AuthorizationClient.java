@@ -1,9 +1,8 @@
 package com.fp.user.web.client;
 
-import com.fp.tool.RestResult;
-import com.fp.user.api.IAuthorizationService;
-import com.fp.user.api.domain.bo.UserBO;
-import com.fp.user.api.domain.query.UserQuery;
+import com.fp.user.service.IAuthorizationService;
+import com.fp.user.dao.domain.bo.UserBO;
+import com.fp.user.dao.domain.query.UserQuery;
 import com.fp.user.client.IAuthorizationClient;
 import com.fp.user.client.domain.dto.LoginDTO;
 import com.fp.user.client.domain.dto.LoginResultDTO;

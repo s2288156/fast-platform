@@ -1,4 +1,4 @@
-package com.fp.user.service.domain;
+package com.fp.user.service.security;
 
 import lombok.Setter;
 import lombok.ToString;

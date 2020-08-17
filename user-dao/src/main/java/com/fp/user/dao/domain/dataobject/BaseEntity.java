@@ -1,4 +1,4 @@
-package com.fp.user.dao.dataobject;
+package com.fp.user.dao.domain.dataobject;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

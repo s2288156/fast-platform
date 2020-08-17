@@ -46,12 +46,6 @@
 
         <dependency>
             <groupId>com.fp</groupId>
-            <artifactId>user-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fp</groupId>
             <artifactId>user-service</artifactId>
             <version>1.0.0</version>
         </dependency>

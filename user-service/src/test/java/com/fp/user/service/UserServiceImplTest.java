@@ -1,8 +1,6 @@
 package com.fp.user.service;
 
-import com.fp.user.api.IUserService;
-import com.fp.user.api.domain.query.UserQuery;
-import com.fp.user.dao.dataobject.UserDO;
+import com.fp.user.dao.domain.dataobject.UserDO;
 import com.fp.user.dao.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

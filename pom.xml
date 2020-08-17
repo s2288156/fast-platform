@@ -5,7 +5,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>tool-lib</module>
-        <module>user-api</module>
         <module>user-dao</module>
         <module>user-service</module>
         <module>user-web</module>

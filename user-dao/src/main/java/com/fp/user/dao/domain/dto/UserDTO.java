@@ -1,4 +1,4 @@
-package com.fp.user.api.domain.dto;
+package com.fp.user.dao.domain.dto;
 
 import com.fp.user.common.enums.SexEnum;
 import lombok.Data;

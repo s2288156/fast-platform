@@ -1,10 +1,9 @@
-package com.fp.user.service;
+package com.fp.user.service.security;
 
 import com.fp.tool.ex.BizException;
 import com.fp.tool.ex.ResultCodeEnum;
-import com.fp.user.dao.dataobject.UserDO;
+import com.fp.user.dao.domain.dataobject.UserDO;
 import com.fp.user.dao.repository.UserRepository;
-import com.fp.user.service.domain.CustomUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

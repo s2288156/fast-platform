@@ -19,12 +19,6 @@
 
         <dependency>
             <groupId>com.fp</groupId>
-            <artifactId>user-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fp</groupId>
             <artifactId>user-dao</artifactId>
             <version>1.0.0</version>
         </dependency>

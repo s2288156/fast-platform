@@ -1,7 +1,7 @@
 package com.fp.user.dao.repository;
 
 import com.fp.user.dao.NoneWebTest;
-import com.fp.user.dao.dataobject.UserDO;
+import com.fp.user.dao.domain.dataobject.UserDO;
 import com.fp.user.common.enums.SexEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

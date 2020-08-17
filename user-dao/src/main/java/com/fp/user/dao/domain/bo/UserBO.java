@@ -1,4 +1,4 @@
-package com.fp.user.api.domain.bo;
+package com.fp.user.dao.domain.bo;
 
 import lombok.Data;
 

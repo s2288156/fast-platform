@@ -1,4 +1,4 @@
-package com.fp.user.api.domain.query;
+package com.fp.user.dao.domain.query;
 
 import lombok.Data;
 

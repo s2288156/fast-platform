@@ -9,7 +9,7 @@ import com.intellij.database.util.DasUtil
  *   PROJECT     project
  *   FILES       files helper
  */
-packageName = "com.fp.user.dao.dataobject;"  //这里要换成自己项目 实体的包路径
+packageName = "com.fp.user.dao.domain.dataobject;"  //这里要换成自己项目 实体的包路径
 typeMapping = [
         (~/(?i)int/)               : "Integer",  //数据库类型和Jave类型映射关系
         (~/(?i)float|double|real/) : "Double",

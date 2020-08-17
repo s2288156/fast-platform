@@ -1,4 +1,4 @@
-package com.fp.user.api;
+package com.fp.user.service;
 
 /**
  * @author wcy
