@@ -25,6 +25,9 @@ spring:
     user:
       name: admin
       password: 123123
+  redis:
+    cluster:
+      nodes: 192.168.30.214:7000,192.168.30.214:7001,192.168.30.214:7002,192.168.30.214:7003,192.168.30.214:7004,192.168.30.214:7005
 server:
   port: 18000
   servlet:
@@ -34,3 +37,4 @@ management:
   endpoint:
     health:
       show-details: always
+
