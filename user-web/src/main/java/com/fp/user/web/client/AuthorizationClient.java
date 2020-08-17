@@ -16,21 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @author wcy
  */
 @RestController
-public class AuthorizationClient implements IAuthorizationClient {
+public class AuthorizationClient  {
 
     @Autowired
     private IAuthorizationService authorizationService;
 
-    @PostMapping("/login")
-    @Override
-    public LoginResultDTO login(@Validated LoginDTO loginDTO) {
-        UserQuery userQuery = new UserQuery();
-        BeanUtils.copyProperties(loginDTO, userQuery);
-
-        UserBO userBO = null;
-        userBO = authorizationService.login(userQuery);
-        LoginResultDTO loginResultDTO = new LoginResultDTO();
-        BeanUtils.copyProperties(userBO, loginResultDTO);
-        return loginResultDTO;
-    }
+//    @Override
+//    public LoginResultDTO login(@Validated LoginDTO loginDTO) {
+//        UserQuery userQuery = new UserQuery();
+//        BeanUtils.copyProperties(loginDTO, userQuery);
+//
+//        UserBO userBO = null;
+//        userBO = authorizationService.login(userQuery);
+//        LoginResultDTO loginResultDTO = new LoginResultDTO();
+//        BeanUtils.copyProperties(userBO, loginResultDTO);
+//        return loginResultDTO;
+//    }
 }

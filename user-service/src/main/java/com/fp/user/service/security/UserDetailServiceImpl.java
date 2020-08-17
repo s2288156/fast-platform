@@ -6,6 +6,7 @@ import com.fp.user.dao.domain.dataobject.UserDO;
 import com.fp.user.dao.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,10 +27,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserDO> optionalUser = userRepository.findByUsername(username);
         UserDO userDO = optionalUser.orElseThrow(() -> new BizException(ResultCodeEnum.USER_LOGIN_ERROR));
-        CustomUserDetail customUserDetail = new CustomUserDetail();
-        customUserDetail.setPassword(userDO.getPassword());
-        customUserDetail.setUsername(userDO.getUsername());
-        customUserDetail.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-        return customUserDetail;
+        return new User(userDO.getUsername(), userDO.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }
