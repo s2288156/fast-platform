@@ -27,6 +27,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserDO> optionalUser = userRepository.findByUsername(username);
         UserDO userDO = optionalUser.orElseThrow(() -> new BizException(ResultCodeEnum.USER_LOGIN_ERROR));
-        return new User(userDO.getUsername(), userDO.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        User admin = new User(userDO.getUsername(), userDO.getPassword(),
+                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_adminaaa"));
+        return admin;
     }
 }
