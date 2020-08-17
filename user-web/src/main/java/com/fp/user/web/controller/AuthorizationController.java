@@ -43,7 +43,8 @@ public class AuthorizationController {
         return RestResult.success();
     }
 
-    @PreAuthorize("hasAnyRole('admin')")
+    @PreAuthorize("hasAnyAuthority('admin')")
+//    @PreAuthorize("@ss.hasPermi()")
     @GetMapping("/all")
     public RestResult<List<UserVO>> all() {
         List<UserDO> userDOList = authorizationService.allUser();

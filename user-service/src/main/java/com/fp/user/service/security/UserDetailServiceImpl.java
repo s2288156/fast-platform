@@ -28,7 +28,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         Optional<UserDO> optionalUser = userRepository.findByUsername(username);
         UserDO userDO = optionalUser.orElseThrow(() -> new BizException(ResultCodeEnum.USER_LOGIN_ERROR));
         User admin = new User(userDO.getUsername(), userDO.getPassword(),
-                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_adminaaa"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
         return admin;
     }
 }
