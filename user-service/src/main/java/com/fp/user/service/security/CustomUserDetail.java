@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author wcy
@@ -19,7 +18,7 @@ public class CustomUserDetail implements UserDetails {
 
     private String password;
 
-    private List<GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
