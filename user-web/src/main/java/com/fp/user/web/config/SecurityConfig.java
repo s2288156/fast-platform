@@ -1,6 +1,7 @@
 package com.fp.user.web.config;
 
 import com.fp.tool.util.JsonUtils;
+import com.fp.user.web.util.JWSUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,11 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Bean
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,22 +60,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             log.info(">>>>>>>>>>> username = {}, password = {}", username, password);
             User principal = (User) authentication.getPrincipal();
             log.info("user = {}", JsonUtils.toJson(principal));
-            redisTemplate.opsForValue().set(principal.getUsername(), principal, 10, TimeUnit.MINUTES);
+            String token = JWSUtils.sign(JsonUtils.toJson(principal));
+            redisTemplate.opsForValue().set(principal.getUsername(), token, 10, TimeUnit.MINUTES);
+            httpServletResponse.setHeader("Authorization", token);
         };
         http
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login")
+//                .formLogin()
+//                .formLogin().loginPage("/login")
+                .formLogin().loginProcessingUrl("/login")
 //                .defaultSuccessUrl("/all")
                 .successHandler(successHandler)
-                .and()
-                .formLogin().loginProcessingUrl("/login")
+//                .and()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .csrf().disable();
+                .csrf().disable().headers().cacheControl();
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public JWTAuthenticationFilter jwtAuthenticationFilter() {
+        return new JWTAuthenticationFilter();
     }
 
     @Override
