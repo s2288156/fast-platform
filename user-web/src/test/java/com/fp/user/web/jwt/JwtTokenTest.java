@@ -1,6 +1,7 @@
 package com.fp.user.web.jwt;
 
 import com.fp.tool.util.CertUtil;
+import com.fp.user.web.util.JWSUtils;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -82,29 +83,14 @@ class JwtTokenTest {
     @DisplayName("JWS_RSA_FOR_JKS_FILE")
     @Test
     void testJWS_RSA_File() {
-        // 加载jks秘钥容器
-        CertUtil certUtil = new CertUtil();
-        certUtil.initKeyStore("jwt.jks", "JKS", "123456");
-        // 获取公私钥
-        PrivateKey priKey = certUtil.getPriKey();
-        RSAPublicKey pubKey = (RSAPublicKey) certUtil.getPubKey();
+        String content = "hello RSA in jws!";
 
-        // 创建signer
-        RSASSASigner signer = new RSASSASigner(priKey);
-
-        JWSObject jwsObject = new JWSObject(
-                new JWSHeader.Builder(JWSAlgorithm.RS256).build(),
-                new Payload("hello RSA in jws!")
-        );
-        jwsObject.sign(signer);
-        String token = jwsObject.serialize();
+        String token = JWSUtils.sign(content);
         log.warn("{}", token);
 
-        RSASSAVerifier verifier = new RSASSAVerifier(pubKey);
-        JWSObject parseJwsObject = JWSObject.parse(token);
-        boolean verify = parseJwsObject.verify(verifier);
+        boolean verify = JWSUtils.verify(token);
         assertTrue(verify);
-        log.warn("{}", parseJwsObject.getPayload().toString());
+        log.warn("{}", JWSUtils.getPayload(token));
 
     }
 
