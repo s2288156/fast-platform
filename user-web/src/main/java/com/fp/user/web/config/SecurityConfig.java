@@ -43,17 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
-//        successHandler.setTargetUrlParameter("redirectTo");
-//        successHandler.setDefaultTargetUrl("/all");
         AuthenticationSuccessHandler successHandler = (httpServletRequest, httpServletResponse, authentication) -> {
             String username = httpServletRequest.getParameter("username");
             String password = httpServletRequest.getParameter("password");
@@ -69,12 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-//                .formLogin()
-//                .formLogin().loginPage("/login")
                 .formLogin().loginProcessingUrl("/login")
-//                .defaultSuccessUrl("/all")
                 .successHandler(successHandler)
-//                .and()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
