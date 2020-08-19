@@ -10,8 +10,8 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
+        show_sql: false
+        format_sql: false
         enable_lazy_load_no_trans: true
   lifecycle:
     timeout-per-shutdown-phase: 15s # kill程序后15s后再停止程序，此过程中不会接收新的请求
@@ -25,6 +25,7 @@ spring:
     user:
       name: admin
       password: 123123
+
   redis:
     cluster:
       nodes: 192.168.30.214:7000,192.168.30.214:7001,192.168.30.214:7002,192.168.30.214:7003,192.168.30.214:7004,192.168.30.214:7005
