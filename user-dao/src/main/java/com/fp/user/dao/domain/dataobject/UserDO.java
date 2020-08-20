@@ -1,5 +1,6 @@
 package com.fp.user.dao.domain.dataobject;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fp.user.common.enums.SexEnum;
 import lombok.*;
@@ -38,6 +39,7 @@ public class UserDO extends BaseEntity {
     /**
      * 0 - 男，1 - 女
      **/
+    @EnumValue
     private SexEnum sex;
 
 }

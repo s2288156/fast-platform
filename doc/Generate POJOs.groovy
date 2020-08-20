@@ -3,6 +3,9 @@ import com.intellij.database.model.ObjectKind
 import com.intellij.database.util.Case
 import com.intellij.database.util.DasUtil
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 /*
  * Available context bindings:
  *   SELECTION   Iterable<DasObject>
@@ -11,13 +14,13 @@ import com.intellij.database.util.DasUtil
  */
 packageName = "com.fp.user.dao.domain.dataobject;"  //这里要换成自己项目 实体的包路径
 typeMapping = [
-        (~/(?i)int/)               : "Integer",  //数据库类型和Jave类型映射关系
-        (~/(?i)float|double|real/) : "Double",
-        (~/(?i)decimal/)           : "Money",
-        (~/(?i)bool|boolean/)      : "Boolean",
-        (~/(?i)datetime|timestamp/): "LocalDateTime",
-        (~/(?i)date/)              : "LocalDate",
-        (~/(?i)/)                  : "String"
+        (~/(?i)int/)                      : "Integer",  //数据库类型和Jave类型映射关系
+        (~/(?i)float|double|real/): "Double",
+        (~/(?i)decimal/): "Money",
+        (~/(?i)bool|boolean/)             : "Boolean",
+        (~/(?i)datetime|timestamp/)       : "LocalDateTime",
+        (~/(?i)date/)                     : "LocalDate",
+        (~/(?i)/)                         : "String"
 ]
 
 FILES.chooseDirectoryAndSave("Choose directory", "Choose where to store generated files") { dir ->
@@ -35,32 +38,32 @@ def generate(out, table, className, fields) {
     out.println "package $packageName"
     out.println ""
     out.println "import lombok.*;"
-//    out.println "import com.trade.common.base.GoodBaseEntity;"
     out.println "import lombok.experimental.Accessors;"
+    out.println "import com.baomidou.mybatisplus.annotation.TableName;"
     out.println ""
     for (it in fields) {
         if (it.type == "Money") {
-            out.println "import org.hibernate.annotations.Type;"
             out.println "import org.joda.money.Money;"
-            out.println "import org.hibernate.annotations.Parameter;"
+            out.println "import com.baomidou.mybatisplus.annotation.TableField;"
+            out.println "import com.baomidou.mybatisplus.annotation.TableName;"
+            out.println "import com.zyzh.upp.core.MoneyTypeHandler;"
             break
         }
     }
-    for (it in fields) {
-        if (it.type == "LocalDateTime") {
-            out.println "import java.time.LocalDateTime;"
-            break
-        }
-    }
-    for (it in fields) {
-        if (it.type == "LocalDate") {
-            out.println "import java.time.LocalDate;"
-            break
-        }
-    }
+//  for (it in fields) {
+//    if (it.type == "LocalDateTime") {
+//      out.println "import java.time.LocalDateTime;"
+//      break
+//    }
+//  }
+//  for (it in fields) {
+//    if(it.type == "LocalDate") {
+//      out.println "import java.time.LocalDate;"
+//      break
+//    }
+//  }
 
 
-    out.println "import javax.persistence.*;"
     out.println ""
     out.println "/**"
     out.println " * @author wcy-auto"
@@ -71,8 +74,13 @@ def generate(out, table, className, fields) {
     out.println "@Accessors(chain = true)"
     out.println "@ToString(callSuper = true)"
     out.println "@EqualsAndHashCode(callSuper = true)"
-    out.println "@Entity"
-    out.println "@Table(name = \"$tableName\")"
+    out.println "@TableName(autoResultMap = true, value = \"$tableName\")"
+    for (it in fields) {
+        if (it.type == "Money") {
+            out.println "@TableName(autoResultMap = true)"
+            break
+        }
+    }
     out.println "public class $className extends BaseEntity {"
     out.println ""
 
@@ -90,12 +98,11 @@ def generate(out, table, className, fields) {
                 out.println "      **/"
             }
             if (it.annos != "") out.println "  ${it.annos}"
-            if (it.colum != it.name) {
-                out.println "    @Column(name = \"${it.colum}\")"
-            }
+//            if (it.colum != it.name) {
+//                out.println "    @Column(name = \"${it.colum}\")"
+//            }
             if (it.type == "Money") {
-                out.println "    @Type(type = \"org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmount\","
-                out.println "       parameters = {@Parameter(name = \"currencyCode\", value = \"CNY\")})"
+                out.println "    @TableField(typeHandler = MoneyTypeHandler.class)"
             }
 
             out.println "    private ${it.type} ${it.name};"
