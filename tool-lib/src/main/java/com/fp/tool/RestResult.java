@@ -1,5 +1,6 @@
 package com.fp.tool;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fp.tool.ex.IResultCode;
 import com.fp.tool.ex.ResultCodeEnum;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 /**
  * @author wcy
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class RestResult<T> implements Serializable {
     private static final long serialVersionUID = -6614763960648586816L;
