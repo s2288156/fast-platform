@@ -1,5 +1,6 @@
 package com.fp.user.dao.domain.dataobject;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fp.user.common.enums.SexEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -13,6 +14,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@TableName(autoResultMap = true, value = "t_user")
 public class UserDO extends BaseEntity {
 
     private String username;
