@@ -8,11 +8,9 @@ import com.fp.user.dao.domain.bo.UserBO;
 import com.fp.user.dao.domain.dto.UserDTO;
 import com.fp.user.dao.domain.query.UserQuery;
 import com.fp.user.dao.domain.dataobject.UserDO;
-import com.fp.user.dao.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,21 +28,19 @@ import java.util.Optional;
 public class AuthorizationServiceImpl implements IAuthorizationService {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public UserBO login(UserQuery userQuery) {
         UserDO userDO = new UserDO();
         userDO.setUsername(userQuery.getUsername());
-        Optional<UserDO> optionalUserDO = userRepository.findOne(Example.of(userDO));
-        if (optionalUserDO.isPresent() && passwordEncoder.matches(userQuery.getPassword(), optionalUserDO.get().getPassword())) {
-            UserBO userBO = new UserBO();
-            BeanUtils.copyProperties(optionalUserDO.get(), userBO);
-            return userBO;
-        }
+        // TODO: 2020/8/20 补充dao逻辑
+//        Optional<UserDO> optionalUserDO = userRepository.findOne(Example.of(userDO));
+//        if (optionalUserDO.isPresent() && passwordEncoder.matches(userQuery.getPassword(), optionalUserDO.get().getPassword())) {
+//            UserBO userBO = new UserBO();
+//            BeanUtils.copyProperties(optionalUserDO.get(), userBO);
+//            return userBO;
+//        }
         throw new BizException(ResultCodeEnum.USER_LOGIN_ERROR);
     }
 
@@ -56,16 +52,17 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
     @Transactional
     @Override
     public UserDTO register(UserDTO userDTO) {
-        if (userRepository.existsByUsername(userDTO.getUsername())) {
-            throw new BizException(ResultCodeEnum.USERNAME_EXISTS);
-        }
-        UserDO userDO = new UserDO();
-        userDO.setUsername(userDTO.getUsername());
-        userDO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-
-        userDO.setRoleList(defaultRoles());
-        userRepository.save(userDO);
-        return userDTO;
+//        if (userRepository.existsByUsername(userDTO.getUsername())) {
+//            throw new BizException(ResultCodeEnum.USERNAME_EXISTS);
+//        }
+//        UserDO userDO = new UserDO();
+//        userDO.setUsername(userDTO.getUsername());
+//        userDO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+//
+//        userDO.setRoleList(defaultRoles());
+//        userRepository.save(userDO);
+//        return userDTO;
+        return null;
     }
 
     private List<RoleDO> defaultRoles() {
@@ -79,10 +76,11 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
 
     @Override
     public List<UserDO> allUser() {
-        List<UserDO> all = userRepository.findAll();
-        if (CollectionUtils.isEmpty(all)) {
-            return new ArrayList<>();
-        }
-        return all;
+//        List<UserDO> all = userRepository.findAll();
+//        if (CollectionUtils.isEmpty(all)) {
+//            return new ArrayList<>();
+//        }
+//        return all;
+        return null;
     }
 }

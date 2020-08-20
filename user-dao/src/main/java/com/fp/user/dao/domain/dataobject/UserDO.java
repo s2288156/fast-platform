@@ -4,10 +4,6 @@ import com.fp.user.common.enums.SexEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
-
 /**
  * @author wcy-auto
  **/
@@ -17,8 +13,6 @@ import java.util.Set;
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Entity
-@Table(name = "t_user")
 public class UserDO extends BaseEntity {
 
     private String username;
@@ -37,19 +31,11 @@ public class UserDO extends BaseEntity {
     /**
      * 年龄
      **/
-    @Column(columnDefinition = "tinyint(1)")
     private Integer age;
 
     /**
      * 0 - 男，1 - 女
      **/
-    @Enumerated
-    @Column(columnDefinition = "tinyint(1)")
     private SexEnum sex;
 
-    @ManyToMany
-    @JoinTable(name = "t_user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleDO> roleList;
 }

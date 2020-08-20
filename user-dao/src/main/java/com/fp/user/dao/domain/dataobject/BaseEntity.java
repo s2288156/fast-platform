@@ -1,14 +1,10 @@
 package com.fp.user.dao.domain.dataobject;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -16,20 +12,18 @@ import java.time.LocalDateTime;
  * @author wcy
  */
 @Data
-@MappedSuperclass
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1997659980155645176L;
-    @Id
-    @GeneratedValue(generator = "custom-id")
-    @GenericGenerator(name = "custom-id", strategy = "com.fp.user.dao.jpa.CustomIdGenerator")
+
+    @TableId
     private String id;
 
-    @CreationTimestamp
-    @Column(updatable = false)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @UpdateTimestamp
+    @TableField(value = "update_Time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+    ;
 
 }

@@ -33,6 +33,7 @@
         <spring-cloud.version>Hoxton.SR7</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
         <nimbus-jsse-jwt.version>8.19</nimbus-jsse-jwt.version>
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
 
         <tool-lib.version>1.0.1</tool-lib.version>
     </properties>
@@ -93,6 +94,12 @@
                 <groupId>com.nimbusds</groupId>
                 <artifactId>nimbus-jose-jwt</artifactId>
                 <version>${nimbus-jsse-jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
         </dependencies>
 
