@@ -37,10 +37,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             String token = authorization.split(" ")[1];
             log.info(">>>>>>>>>>>>>>>>>>>>>>>>>> token = {}", token);
             if (JWSUtils.verify(token)) {
-//            String payload = JWSUtils.getPayload(token);
-//            User user = JsonUtils.fromJson(payload, User.class);
                 UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken("wuchunyang-1", null, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                        new UsernamePasswordAuthenticationToken(null, null,
+                                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
