@@ -1,5 +1,7 @@
 package com.fp.user.web.config;
 
+import com.fp.tool.RestResult;
+import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.util.JsonUtils;
 import com.fp.user.web.util.JWSUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,9 +20,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginProcessingUrl("/login")
                 .successHandler(successHandler())
+                .failureHandler(failureHandler())
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -60,14 +66,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private AuthenticationSuccessHandler successHandler() {
         return (httpServletRequest, httpServletResponse, authentication) -> {
-            String username = httpServletRequest.getParameter("username");
-            String password = httpServletRequest.getParameter("password");
-            log.info(">>>>>>>>>>> username = {}, password = {}", username, password);
             User principal = (User) authentication.getPrincipal();
             log.info("user = {}", JsonUtils.toJson(principal));
             String token = JWSUtils.sign(JsonUtils.toJson(principal));
             redisTemplate.opsForValue().set(principal.getUsername(), token, 10, TimeUnit.MINUTES);
+            httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
             httpServletResponse.setHeader("Authorization", token);
+            httpServletResponse.getWriter().write(JsonUtils.toJson(RestResult.success()));
+        };
+    }
+
+    private AuthenticationFailureHandler failureHandler() {
+        return (httpServletRequest, httpServletResponse, authentication) -> {
+            httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
+            httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            httpServletResponse.getWriter().write(JsonUtils.toJson(RestResult.error(ResultCodeEnum.USER_LOGIN_ERROR)));
         };
     }
 
