@@ -2,6 +2,7 @@ package com.fp.user.service.impl;
 
 import com.fp.tool.ex.BizException;
 import com.fp.tool.ex.ResultCodeEnum;
+import com.fp.user.dao.domain.dataobject.RoleDO;
 import com.fp.user.service.IAuthorizationService;
 import com.fp.user.dao.domain.bo.UserBO;
 import com.fp.user.dao.domain.dto.UserDTO;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -51,6 +53,7 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
         return passwordEncoder.matches(password, encodePassword);
     }
 
+    @Transactional
     @Override
     public UserDTO register(UserDTO userDTO) {
         if (userRepository.existsByUsername(userDTO.getUsername())) {
@@ -59,8 +62,19 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
         UserDO userDO = new UserDO();
         userDO.setUsername(userDTO.getUsername());
         userDO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+        userDO.setRoleList(defaultRoles());
         userRepository.save(userDO);
         return userDTO;
+    }
+
+    private List<RoleDO> defaultRoles() {
+        List<RoleDO> roleList = new ArrayList<>();
+        RoleDO roleDO = new RoleDO();
+        roleDO.setName("admin");
+        roleList.add(roleDO);
+
+        return roleList;
     }
 
     @Override

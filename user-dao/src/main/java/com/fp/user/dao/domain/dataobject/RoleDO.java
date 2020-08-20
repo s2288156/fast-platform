@@ -4,7 +4,9 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * @author wcy-auto
@@ -28,5 +30,8 @@ public class RoleDO extends BaseEntity {
      * 详细说明
      **/
     private String description;
+
+    @ManyToMany(mappedBy = "roleList")
+    private List<UserDO> userList;
 
 }

@@ -4,10 +4,9 @@ import com.fp.user.common.enums.SexEnum;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author wcy-auto
@@ -48,4 +47,9 @@ public class UserDO extends BaseEntity {
     @Column(columnDefinition = "tinyint(1)")
     private SexEnum sex;
 
+    @ManyToMany
+    @JoinTable(name = "t_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<RoleDO> roleList;
 }

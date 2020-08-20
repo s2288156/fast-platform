@@ -1,13 +1,15 @@
 package com.fp.user.dao.repository;
 
-import com.fp.user.dao.NoneWebTest;
-import com.fp.user.dao.domain.dataobject.UserDO;
 import com.fp.user.common.enums.SexEnum;
+import com.fp.user.dao.NoneWebTest;
+import com.fp.user.dao.domain.dataobject.RoleDO;
+import com.fp.user.dao.domain.dataobject.UserDO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,5 +60,20 @@ class UserRepositoryTest extends NoneWebTest {
 
         Optional<UserDO> deletedOptional = userRepository.findById(id);
         assertFalse(deletedOptional.isPresent());
+    }
+
+    @Transactional
+    @Test
+    void testUserManyToManyRole() {
+        UserDO userDO = new UserDO();
+        userDO.setUsername("aaaaaaa");
+        userDO.setPassword("11111111");
+        RoleDO roleDO = new RoleDO();
+        roleDO.setName("Admin");
+        List<RoleDO> roleDOList = new ArrayList<>();
+        roleDOList.add(roleDO);
+
+        userDO.setRoleList(roleDOList);
+        userRepository.save(userDO);
     }
 }
