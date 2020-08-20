@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,7 +44,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        AuthenticationSuccessHandler successHandler = (httpServletRequest, httpServletResponse, authentication) -> {
+        http
+                .authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().loginProcessingUrl("/login")
+                .successHandler(successHandler())
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .csrf().disable().headers().cacheControl();
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    private AuthenticationSuccessHandler successHandler() {
+        return (httpServletRequest, httpServletResponse, authentication) -> {
             String username = httpServletRequest.getParameter("username");
             String password = httpServletRequest.getParameter("password");
             log.info(">>>>>>>>>>> username = {}, password = {}", username, password);
@@ -55,18 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             redisTemplate.opsForValue().set(principal.getUsername(), token, 10, TimeUnit.MINUTES);
             httpServletResponse.setHeader("Authorization", token);
         };
-        http
-                .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginProcessingUrl("/login")
-                .successHandler(successHandler)
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .csrf().disable().headers().cacheControl();
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

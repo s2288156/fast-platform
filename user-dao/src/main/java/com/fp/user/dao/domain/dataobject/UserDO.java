@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "user")
+@Table(name = "t_user")
 public class UserDO extends BaseEntity {
 
     private String username;
