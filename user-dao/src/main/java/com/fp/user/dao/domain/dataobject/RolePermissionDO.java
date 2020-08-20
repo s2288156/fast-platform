@@ -13,9 +13,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @AllArgsConstructor
 @Accessors(chain = true)
 @ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @TableName(autoResultMap = true, value = "t_role_permission")
-public class RolePermissionDO extends BaseEntity {
+public class RolePermissionDO {
 
     private String roleId;
 

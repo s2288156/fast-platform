@@ -49,30 +49,6 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
         return passwordEncoder.matches(password, encodePassword);
     }
 
-    @Transactional
-    @Override
-    public UserDTO register(UserDTO userDTO) {
-//        if (userRepository.existsByUsername(userDTO.getUsername())) {
-//            throw new BizException(ResultCodeEnum.USERNAME_EXISTS);
-//        }
-//        UserDO userDO = new UserDO();
-//        userDO.setUsername(userDTO.getUsername());
-//        userDO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-//
-//        userDO.setRoleList(defaultRoles());
-//        userRepository.save(userDO);
-//        return userDTO;
-        return null;
-    }
-
-    private List<RoleDO> defaultRoles() {
-        List<RoleDO> roleList = new ArrayList<>();
-        RoleDO roleDO = new RoleDO();
-        roleDO.setName("admin");
-        roleList.add(roleDO);
-
-        return roleList;
-    }
 
     @Override
     public List<UserDO> allUser() {

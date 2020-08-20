@@ -4,6 +4,7 @@ import com.fp.tool.RestResult;
 import com.fp.user.dao.domain.dataobject.UserDO;
 import com.fp.user.dao.domain.dto.UserDTO;
 import com.fp.user.service.IAuthorizationService;
+import com.fp.user.service.IUserService;
 import com.fp.user.web.domain.form.Register;
 import com.fp.user.web.domain.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,9 @@ public class AuthorizationController {
     @Autowired
     private IAuthorizationService authorizationService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      * 用户注册
      *
@@ -39,7 +43,18 @@ public class AuthorizationController {
     public RestResult<?> register(Register register) {
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(register, userDTO);
-        authorizationService.register(userDTO);
+        userService.register(userDTO);
+        return RestResult.success();
+    }
+
+    /**
+     * 给用户添加ROLE
+     *
+     * @return result
+     */
+    @PostMapping
+    public RestResult<?> addRolesToUser() {
+
         return RestResult.success();
     }
 
