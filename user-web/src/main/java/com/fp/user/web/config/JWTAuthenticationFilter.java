@@ -30,9 +30,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        String authorization = httpServletRequest.getHeader("Authorization");
-        if (StringUtils.isNoneBlank(authorization)) {
-            String token = authorization.split(" ")[1];
+        String token = httpServletRequest.getHeader("Authorization");
+        if (StringUtils.isNoneBlank(token)) {
             log.info(">>>>>>>>>>>>>>>>>>>>>>>>>> token = {}", token);
             if (JWTUtils.verify(token)) {
                 UsernamePasswordAuthenticationToken authenticationToken =

@@ -1,8 +1,10 @@
 package com.fp.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fp.tool.ex.BizException;
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.user.dao.domain.dataobject.RoleDO;
+import com.fp.user.dao.mapper.UserMapper;
 import com.fp.user.service.IAuthorizationService;
 import com.fp.user.dao.domain.bo.UserBO;
 import com.fp.user.dao.domain.dto.UserDTO;
@@ -30,6 +32,9 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public UserBO login(UserQuery userQuery) {
         UserDO userDO = new UserDO();
@@ -52,11 +57,6 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
 
     @Override
     public List<UserDO> allUser() {
-//        List<UserDO> all = userRepository.findAll();
-//        if (CollectionUtils.isEmpty(all)) {
-//            return new ArrayList<>();
-//        }
-//        return all;
-        return null;
+        return userMapper.selectList(new LambdaQueryWrapper<>());
     }
 }

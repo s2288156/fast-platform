@@ -1,7 +1,5 @@
 package com.fp.tool.util;
 
-import com.fp.tool.secure.AlgorithmEnum;
-import com.fp.tool.secure.SecureUtil;
 import com.fp.tool.secure.asymmetric.Sign;
 import com.fp.tool.secure.asymmetric.SignAlgorithm;
 import lombok.SneakyThrows;
@@ -9,15 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.Signature;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author wcy
