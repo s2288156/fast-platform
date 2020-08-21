@@ -15,7 +15,7 @@ import java.util.Collection;
 @Service("ss")
 public class PermissionUtil {
 
-    public static boolean hasPermi() {
+    public static boolean hasPermission() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         log.warn("{}", authorities);

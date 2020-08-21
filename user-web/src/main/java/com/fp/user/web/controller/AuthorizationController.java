@@ -5,6 +5,7 @@ import com.fp.user.dao.domain.dataobject.UserDO;
 import com.fp.user.dao.domain.dto.UserDTO;
 import com.fp.user.service.IAuthorizationService;
 import com.fp.user.service.IUserService;
+import com.fp.user.web.domain.form.AddRoles;
 import com.fp.user.web.domain.form.Register;
 import com.fp.user.web.domain.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,6 @@ import java.util.stream.Collectors;
  * @author wcy
  */
 @Slf4j
-@Validated
 @RestController
 public class AuthorizationController {
 
@@ -62,9 +62,8 @@ public class AuthorizationController {
      * @return result
      */
     @PostMapping("/add/roles")
-    public RestResult<?> addRolesToUser(@NotNull(message = "请选择角色") List<String> roleIds,
-                                        @NotBlank(message = "请选择授权用户") String userId) {
-        int number = userService.addRoles(roleIds, userId);
+    public RestResult<?> addRolesToUser(@Validated AddRoles addRoles) {
+        int number = userService.addRoles(addRoles.getRoleIds(), addRoles.getUserId());
         return RestResult.success(number);
     }
 

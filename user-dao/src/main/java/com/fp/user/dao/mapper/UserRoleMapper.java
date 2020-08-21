@@ -7,4 +7,5 @@ import com.fp.user.dao.domain.dataobject.UserRoleDO;
  * @author wcy
  */
 public interface UserRoleMapper extends BaseMapper<UserRoleDO> {
+
 }
