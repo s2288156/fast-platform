@@ -3,7 +3,7 @@ package com.fp.user.web.config;
 import com.fp.tool.RestResult;
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.util.JsonUtils;
-import com.fp.user.web.util.JWSUtils;
+import com.fp.user.web.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return (httpServletRequest, httpServletResponse, authentication) -> {
             User principal = (User) authentication.getPrincipal();
             log.info("user = {}", JsonUtils.toJson(principal));
-            String token = JWSUtils.sign(JsonUtils.toJson(principal));
+            String token = JWTUtils.sign(JsonUtils.toJson(principal));
             redisTemplate.opsForValue().set(principal.getUsername(), token, 10, TimeUnit.MINUTES);
             httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
             httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);

@@ -1,7 +1,6 @@
 package com.fp.user.web.config;
 
-import com.fp.tool.util.JsonUtils;
-import com.fp.user.web.util.JWSUtils;
+import com.fp.user.web.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -36,7 +34,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         if (StringUtils.isNoneBlank(authorization)) {
             String token = authorization.split(" ")[1];
             log.info(">>>>>>>>>>>>>>>>>>>>>>>>>> token = {}", token);
-            if (JWSUtils.verify(token)) {
+            if (JWTUtils.verify(token)) {
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(null, null,
                                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));

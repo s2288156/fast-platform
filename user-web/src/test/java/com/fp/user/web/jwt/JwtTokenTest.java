@@ -1,7 +1,6 @@
 package com.fp.user.web.jwt;
 
-import com.fp.tool.util.CertUtil;
-import com.fp.user.web.util.JWSUtils;
+import com.fp.user.web.util.JWTUtils;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -13,10 +12,9 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.security.PrivateKey;
 import java.security.SecureRandom;
-import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author wcy
  */
+@SpringBootTest
 @Slf4j
 class JwtTokenTest {
 
@@ -80,17 +79,17 @@ class JwtTokenTest {
     }
 
     @SneakyThrows
-    @DisplayName("JWS_RSA_FOR_JKS_FILE")
+    @DisplayName("JWS_RSA_FOR_KEY_STR")
     @Test
-    void testJWS_RSA_File() {
+    void testJWS_RSA_KEY() {
         String content = "hello RSA in jws!";
 
-        String token = JWSUtils.sign(content);
+        String token = JWTUtils.sign(content);
         log.warn("{}", token);
 
-        boolean verify = JWSUtils.verify(token);
+        boolean verify = JWTUtils.verify(token);
         assertTrue(verify);
-        log.warn("{}", JWSUtils.getPayload(token));
+        log.warn("{}", JWTUtils.getPayload(token));
 
     }
 

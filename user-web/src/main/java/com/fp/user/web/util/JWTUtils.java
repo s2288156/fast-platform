@@ -2,6 +2,8 @@ package com.fp.user.web.util;
 
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.ex.SysException;
+import com.fp.tool.secure.SecureUtil;
+import com.fp.tool.secure.asymmetric.SignAlgorithm;
 import com.fp.tool.util.CertUtil;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
@@ -14,23 +16,24 @@ import java.security.interfaces.RSAPublicKey;
 /**
  * @author wcy
  */
-public class JWSUtils {
+public class JWTUtils {
 
-    private static CertUtil cert;
     private static PrivateKey priKey;
+
     private static RSAPublicKey pubKey;
 
+    private static RSASSASigner signer;
+
+    private static RSASSAVerifier verifier;
+
     static {
-        cert = new CertUtil();
-        cert.initKeyStore("jwt.jks", "JKS", "123456");
-        priKey = cert.getPriKey();
-        pubKey = (RSAPublicKey) cert.getPubKey();
+        priKey = SecureUtil.generatePrivateKey(SignAlgorithm.SHA1withRSA, JWTProperties.privateKey);
+        pubKey = (RSAPublicKey) SecureUtil.generatePublicKey(SignAlgorithm.SHA1withRSA, JWTProperties.publicKey);
+        signer = new RSASSASigner(priKey);
+        verifier = new RSASSAVerifier(pubKey);
     }
 
     public static String sign(String json) {
-        // 创建signer
-        RSASSASigner signer = new RSASSASigner(priKey);
-
         JWSObject jwsObject = new JWSObject(
                 new JWSHeader.Builder(JWSAlgorithm.RS256).build(),
                 new Payload(json)
@@ -43,16 +46,21 @@ public class JWSUtils {
         return jwsObject.serialize();
     }
 
-    @SneakyThrows
     public static boolean verify(String token) {
-        RSASSAVerifier verifier = new RSASSAVerifier(pubKey);
-        JWSObject parseJwsObject = JWSObject.parse(token);
-        return parseJwsObject.verify(verifier);
+        try {
+            JWSObject parseJwsObject = JWSObject.parse(token);
+            return parseJwsObject.verify(verifier);
+        } catch (Exception e) {
+            throw new SysException(ResultCodeEnum.SYS_EXECUTE_ERROR);
+        }
     }
 
-    @SneakyThrows
     public static String getPayload(String token) {
-        JWSObject parseJwsObject = JWSObject.parse(token);
-        return parseJwsObject.getPayload().toString();
+        try {
+            JWSObject parseJwsObject = JWSObject.parse(token);
+            return parseJwsObject.getPayload().toString();
+        } catch (Exception e) {
+            throw new SysException(ResultCodeEnum.SYS_EXECUTE_ERROR);
+        }
     }
 }
