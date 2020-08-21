@@ -12,10 +12,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,7 @@ import java.util.stream.Collectors;
  * @author wcy
  */
 @Slf4j
+@Validated
 @RestController
 public class AuthorizationController {
 
@@ -44,7 +48,7 @@ public class AuthorizationController {
      * @return 注册结果
      */
     @PostMapping("/register")
-    public RestResult<?> register(Register register) {
+    public RestResult<?> register(@Validated Register register) {
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(register, userDTO);
         userDTO.setPassword(passwordEncoder.encode(register.getPassword()));
@@ -57,10 +61,11 @@ public class AuthorizationController {
      *
      * @return result
      */
-    @PostMapping
-    public RestResult<?> addRolesToUser() {
-
-        return RestResult.success();
+    @PostMapping("/add/roles")
+    public RestResult<?> addRolesToUser(@NotNull(message = "请选择角色") List<String> roleIds,
+                                        @NotBlank(message = "请选择授权用户") String userId) {
+        int number = userService.addRoles(roleIds, userId);
+        return RestResult.success(number);
     }
 
     @PreAuthorize("hasAnyAuthority('admin')")

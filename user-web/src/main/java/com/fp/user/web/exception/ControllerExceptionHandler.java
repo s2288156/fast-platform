@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,6 +34,13 @@ public class ControllerExceptionHandler {
     public ResponseEntity<?> handleBizException(SysException ex) {
         log.error("[SysException]: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(RestResult.error(ex.getCode(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(value = BindException.class)
+    public ResponseEntity<?> bingEx(BindException e) {
+        log.warn("校验异常字段filedName: {}", e.getFieldError().getField());
+        return ResponseEntity.badRequest().body(RestResult.error(ResultCodeEnum.USER_ERROR.code(),
+                e.getFieldError().getDefaultMessage()));
     }
 
     @ExceptionHandler(AccessDeniedException.class)
