@@ -2,6 +2,7 @@ package com.fp.tool.util;
 
 import com.fp.tool.secure.AlgorithmEnum;
 import com.fp.tool.secure.SecureUtil;
+import com.fp.tool.secure.asymmetric.Sign;
 import com.fp.tool.secure.asymmetric.SignAlgorithm;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -44,22 +45,12 @@ class CertUtilTest {
     @Test
     void testPublicKey() {
         String data = "hello";
+        Sign sign = new Sign(SignAlgorithm.SHA1withRSA, publicKeyString, privateKeyString);
 
+        String signStr = sign.sign(data);
+        log.warn("{}", signStr);
 
-        PrivateKey privateKey = SecureUtil.generatePrivateKey(SignAlgorithm.SHA1withRSA, privateKeyString);
-
-        Signature signature = Signature.getInstance("SHA1WithRSA");
-        signature.initSign(privateKey);
-        signature.update(data.getBytes());
-
-        String sign = Base64.getEncoder().encodeToString(signature.sign());
-        log.warn("{}", sign);
-
-        PublicKey publicKey = SecureUtil.generatePublicKey(SignAlgorithm.SHA1withRSA, publicKeyString);
-
-        signature.initVerify(publicKey);
-        signature.update(data.getBytes());
-        boolean verify = signature.verify(Base64.getDecoder().decode(sign));
+        boolean verify = sign.verify(data, signStr);
         log.warn("{}", verify);
         assertTrue(verify);
     }
