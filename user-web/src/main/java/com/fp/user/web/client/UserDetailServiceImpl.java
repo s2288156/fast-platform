@@ -1,8 +1,11 @@
-package com.fp.user.service.security;
+package com.fp.user.web.client;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fp.tool.ex.BizException;
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.user.dao.domain.dataobject.UserDO;
+import com.fp.user.dao.mapper.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -11,24 +14,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 /**
  * @author wcy
  */
+@Slf4j
 @Component
 public class UserDetailServiceImpl implements UserDetailsService {
 
-
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Optional<UserDO> optionalUser = userRepository.findByUsername(username);
-//        UserDO userDO = optionalUser.orElseThrow(() -> new BizException(ResultCodeEnum.USER_LOGIN_ERROR));
-//        User admin = new User(userDO.getUsername(), userDO.getPassword(),
-//                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-//        return admin;
-        // TODO: 2020/8/20 补充dao逻辑
-        return null;
+        log.info("loadUserByUsername = {}", username);
+        UserDO userDO = userMapper.selectOne(new LambdaQueryWrapper<UserDO>().eq(UserDO::getUsername, username));
+        if (userDO == null) {
+            throw new BizException(ResultCodeEnum.USER_LOGIN_ERROR);
+        }
+        return new User(userDO.getUsername(), userDO.getPassword(),
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }

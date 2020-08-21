@@ -1,4 +1,4 @@
-package com.fp.user.web.config;
+package com.fp.security.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

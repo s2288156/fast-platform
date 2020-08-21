@@ -14,15 +14,11 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.fp</groupId>
             <artifactId>user-dao</artifactId>
             <version>1.0.0</version>
         </dependency>
+
     </dependencies>
 
     <build>

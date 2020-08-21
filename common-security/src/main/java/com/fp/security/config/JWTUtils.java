@@ -1,14 +1,12 @@
-package com.fp.user.web.util;
+package com.fp.security.config;
 
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.ex.SysException;
 import com.fp.tool.secure.SecureUtil;
 import com.fp.tool.secure.asymmetric.SignAlgorithm;
-import com.fp.tool.util.CertUtil;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
-import lombok.SneakyThrows;
 
 import java.security.PrivateKey;
 import java.security.interfaces.RSAPublicKey;

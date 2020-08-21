@@ -1,6 +1,5 @@
-package com.fp.user.web.config;
+package com.fp.security.config;
 
-import com.fp.user.web.util.JWTUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,9 @@ public class AuthorizationController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
      * 用户注册
      *
@@ -43,6 +47,7 @@ public class AuthorizationController {
     public RestResult<?> register(Register register) {
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(register, userDTO);
+        userDTO.setPassword(passwordEncoder.encode(register.getPassword()));
         userService.register(userDTO);
         return RestResult.success();
     }
