@@ -3,11 +3,4 @@
 <mapper namespace="com.fp.user.dao.mapper.UserMapper">
 
 
-    <select id="selectUserRoles" resultType="com.fp.user.dao.domain.dto.UserRolesDTO">
-        select tu.id, tu.username, tu.name, tu.email, tu.phone, tr.id, tr.name, tr.description
-        from t_user tu
-        left join t_user_role tur on tu.id = tur.user_id
-        left join t_role tr on tr.id = tur.role_id
-        where tu.id = #{userId}
-    </select>
 </mapper>

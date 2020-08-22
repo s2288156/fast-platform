@@ -24,10 +24,4 @@ public class UserMapperTest extends NoneWebTest {
         userMapper.insert(userDO);
     }
 
-    @Test
-    void testSelectUserRoles() {
-        String userId = "325132950599618560";
-        UserRolesDTO userRolesDTO = userMapper.selectUserRoles(userId);
-        log.info("{}", userRolesDTO);
-    }
 }
