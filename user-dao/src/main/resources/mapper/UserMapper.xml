@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fp.user.dao.mapper.UserMapper">
+
+
+    <select id="selectUserRoles" resultType="com.fp.user.dao.domain.dto.UserRolesDTO">
+        select tu.id, tu.username, tu.name, tu.email, tu.phone, tr.id, tr.name, tr.description
+        from t_user tu
+        left join t_user_role tur on tu.id = tur.user_id
+        left join t_role tr on tr.id = tur.role_id
+        where tu.id = #{userId}
+    </select>
+</mapper>

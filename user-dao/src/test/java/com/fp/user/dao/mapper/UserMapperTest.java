@@ -2,6 +2,7 @@ package com.fp.user.dao.mapper;
 
 import com.fp.user.dao.NoneWebTest;
 import com.fp.user.dao.domain.dataobject.UserDO;
+import com.fp.user.dao.domain.dto.UserRolesDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,12 @@ public class UserMapperTest extends NoneWebTest {
         userDO.setPassword("112233");
 
         userMapper.insert(userDO);
+    }
+
+    @Test
+    void testSelectUserRoles() {
+        String userId = "325132950599618560";
+        UserRolesDTO userRolesDTO = userMapper.selectUserRoles(userId);
+        log.info("{}", userRolesDTO);
     }
 }

@@ -9,7 +9,7 @@
 1. Maven 3.6.x
 2. SpringBoot 2.3.x
 3. Mysql 8.0.x
-4. ORM SpringDataJpa
+4. ORM Mybatis-Plus 3.3.x
 5. 网关 [Spring-cloud-gateway](https://docs.spring.io/spring-cloud-gateway/docs/2.2.4.RELEASE/reference/html/#gateway-starter)
 6. 注册中心 [Nacos 1.3.2](https://nacos.io/zh-cn/docs/what-is-nacos.html)
 7. 微服务调用 [OpenFeign](https://docs.spring.io/spring-cloud-openfeign/docs/2.2.4.RELEASE/reference/html/)
