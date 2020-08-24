@@ -18,6 +18,9 @@ public enum ResultCodeEnum implements IResultCode<String, String> {
     USERNAME_EXISTS("A0111", "用户名已存在"),
     USER_LOGIN_ERROR("A0200", "用户登录异常"),
     PERMISSION_ERROR("A0300", "权限访问异常"),
+    USER_PARAMS_ERROR("A0400", "用户请求参数错误"),
+    INVALID_INPUT("A0402", "无效的用户输入"),
+    ORDER_CLOSED("A0443", "订单已关闭"),
     // 一级宏观错误码
     SYS_EXECUTE_ERROR("B0001", "系统执行出错"),
     // 二级宏观错误码

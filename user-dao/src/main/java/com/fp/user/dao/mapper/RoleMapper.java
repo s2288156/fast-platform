@@ -8,9 +8,10 @@ import java.util.List;
 /**
  * @author wcy
  */
-public interface RoleMapper extends BaseMapper<RoleMapper> {
+public interface RoleMapper extends BaseMapper<RoleDO> {
 
     List<RoleDO> listUserRoles(String userId);
 
     List<String> listUserRoleName(String userId);
+
 }

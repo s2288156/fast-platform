@@ -8,6 +8,7 @@ import com.fp.user.dao.domain.dataobject.UserRoleDO;
 import com.fp.user.dao.domain.dto.UserDTO;
 import com.fp.user.dao.mapper.UserMapper;
 import com.fp.user.dao.mapper.UserRoleMapper;
+import com.fp.user.service.IRoleService;
 import com.fp.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRoleMapper userRoleMapper;
 
+    @Autowired
+    private IRoleService roleService;
+
     @Override
     public void register(UserDTO userDTO) {
         if (existForUsername(userDTO.getUsername())) {
@@ -47,6 +51,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public int addRoles(List<String> roleIdList, String userId) {
+        if (!roleService.existRoles(roleIdList)) {
+            throw new BizException(ResultCodeEnum.INVALID_INPUT);
+        }
         AtomicInteger num = new AtomicInteger();
         roleIdList.forEach(roleId -> {
             UserRoleDO userRoleDO;
@@ -61,6 +68,9 @@ public class UserServiceImpl implements IUserService {
         return num.get();
     }
 
+    /**
+     * t_user_role表存在关联信息
+     */
     private boolean existUserRole(String userId, String roleId) {
         UserRoleDO userRoleDO = userRoleMapper.selectOne(new LambdaQueryWrapper<UserRoleDO>()
                 .eq(UserRoleDO::getRoleId, roleId)
@@ -68,4 +78,5 @@ public class UserServiceImpl implements IUserService {
         );
         return Objects.nonNull(userRoleDO);
     }
+
 }
