@@ -35,6 +35,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         User principal = (User) authentication.getPrincipal();
         Collection<GrantedAuthority> authorities = principal.getAuthorities();
+        log.info("authority = {}", authorities);
         JwtPayload payload = new JwtPayload();
         payload.setRolesForAuthority(authorities);
         String token = JWTUtils.sign(JsonUtils.toJson(payload));

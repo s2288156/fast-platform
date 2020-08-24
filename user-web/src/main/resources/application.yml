@@ -30,7 +30,9 @@ management:
   endpoint:
     health:
       show-details: always
-
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 # ============= JWT RSA 公私钥 ===============
 jwt:
   rsa:
