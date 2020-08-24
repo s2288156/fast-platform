@@ -41,6 +41,12 @@ public class AuthorizationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @PostMapping("/login")
+    public String login(String username, String password) {
+
+        return "this is my login";
+    }
+
     /**
      * 用户注册
      *
