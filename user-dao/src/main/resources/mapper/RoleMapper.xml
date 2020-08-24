@@ -8,4 +8,9 @@
         from t_user_role tur left join t_role tr on tur.role_id=tr.id
         where user_id=#{userId}
     </select>
+    <select id="listUserRoleName" resultType="java.lang.String">
+        select tr.name
+        from t_user_role tur left join t_role tr on tur.role_id=tr.id
+        where user_id=#{userId}
+    </select>
 </mapper>
