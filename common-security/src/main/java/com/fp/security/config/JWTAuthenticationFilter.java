@@ -24,14 +24,18 @@ import java.io.IOException;
 @Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
+    private static final String TOKEN_PREFIX = "Bearer ";
+
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+
     @Autowired
     private RedisTemplate redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        String token = httpServletRequest.getHeader("Authorization");
-        if (StringUtils.isNoneBlank(token)) {
-            if (JWTUtils.verify(token)) {
+        String bearerToken = resolveToken(httpServletRequest);
+        if (StringUtils.isNotBlank(bearerToken)) {
+            if (JWTUtils.verify(bearerToken)) {
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(null, null,
                                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
@@ -41,5 +45,16 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);
+    }
+
+    /**
+     * Get token from header.
+     */
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX)) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 }
