@@ -1,5 +1,6 @@
 package com.fp.security.config;
 
+import com.fp.security.domain.JwtPayload;
 import com.fp.tool.RestResult;
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.util.JsonUtils;
@@ -77,8 +78,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return (httpServletRequest, httpServletResponse, authentication) -> {
             User principal = (User) authentication.getPrincipal();
             Collection<GrantedAuthority> authorities = principal.getAuthorities();
-            log.info("user = {}", JsonUtils.toJson(authorities));
-            String token = JWTUtils.sign(JsonUtils.toJson(authorities));
+            JwtPayload payload = new JwtPayload();
+            payload.setRoles(authorities);
+
+            log.info("payload= {}", payload);
+            String token = JWTUtils.sign(JsonUtils.toJson(payload));
             redisTemplate.opsForValue().set(principal.getUsername(), token, 10, TimeUnit.MINUTES);
             httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
             httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
