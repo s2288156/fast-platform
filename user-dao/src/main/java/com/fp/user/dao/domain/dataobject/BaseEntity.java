@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import org.apache.ibatis.annotations.ResultMap;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,10 +20,8 @@ public class BaseEntity implements Serializable {
     @TableId
     private String id;
 
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @TableField(value = "update_Time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
 }
