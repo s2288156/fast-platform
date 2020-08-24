@@ -46,6 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginSuccessHandler successHandler;
 
+    @Autowired
+    private FailureHandler failureHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -66,21 +69,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginProcessingUrl("/login")
                 .successHandler(successHandler)
-                .failureHandler(failureHandler())
+                .failureHandler(failureHandler)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                 .and()
                 // 禁用session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .csrf().disable().headers().cacheControl();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    private AuthenticationFailureHandler failureHandler() {
-        return (httpServletRequest, httpServletResponse, authentication) -> {
-            httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            httpServletResponse.getWriter().write(JsonUtils.toJson(RestResult.error(ResultCodeEnum.USER_LOGIN_ERROR)));
-        };
     }
 
     @Bean
