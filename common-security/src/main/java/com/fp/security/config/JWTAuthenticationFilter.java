@@ -1,6 +1,7 @@
 package com.fp.security.config;
 
 import com.fp.security.domain.JwtPayload;
+import com.fp.security.util.JWTUtils;
 import com.fp.tool.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,17 +37,13 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String bearerToken = resolveToken(httpServletRequest);
-        if (StringUtils.isNotBlank(bearerToken)) {
-            if (JWTUtils.verify(bearerToken)) {
-                String payload = JWTUtils.getPayload(bearerToken);
-                JwtPayload jwtPayload = JsonUtils.fromJson(payload, JwtPayload.class);
-                log.info("jwtPayload = {}", jwtPayload);
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(null, null,
-                                AuthorityUtils.commaSeparatedStringToAuthorityList(jwtPayload.getRoles()));
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            }
+        if (StringUtils.isNotBlank(bearerToken) && JWTUtils.verify(bearerToken)) {
+            String payload = JWTUtils.getPayload(bearerToken);
+            JwtPayload jwtPayload = JsonUtils.fromJson(payload, JwtPayload.class);
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(null, null, AuthorityUtils.commaSeparatedStringToAuthorityList(jwtPayload.getRoles()));
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);
@@ -62,4 +59,5 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
+
 }

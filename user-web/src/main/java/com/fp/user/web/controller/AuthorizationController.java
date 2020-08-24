@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,12 +38,6 @@ public class AuthorizationController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @PostMapping("/login")
-    public String login(String username, String password) {
-
-        return "this is my login";
-    }
 
     /**
      * 用户注册

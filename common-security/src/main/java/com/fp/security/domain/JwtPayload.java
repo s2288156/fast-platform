@@ -19,7 +19,7 @@ public class JwtPayload implements Serializable {
      */
     private String roles;
 
-    public void setRoles(Collection<GrantedAuthority> authorities) {
+    public void setRolesForAuthority(Collection<GrantedAuthority> authorities) {
         this.roles = authorities.stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));

@@ -1,6 +1,7 @@
 package com.fp.security.config;
 
 import com.fp.security.domain.JwtPayload;
+import com.fp.security.util.JWTUtils;
 import com.fp.tool.RestResult;
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.util.JsonUtils;
@@ -43,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private LoginSuccessHandler successHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -64,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginProcessingUrl("/login")
-                .successHandler(successHandler())
+                .successHandler(successHandler)
                 .failureHandler(failureHandler())
                 .and()
                 // 禁用session
@@ -72,23 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable().headers().cacheControl();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    private AuthenticationSuccessHandler successHandler() {
-        return (httpServletRequest, httpServletResponse, authentication) -> {
-            User principal = (User) authentication.getPrincipal();
-            Collection<GrantedAuthority> authorities = principal.getAuthorities();
-            JwtPayload payload = new JwtPayload();
-            payload.setRoles(authorities);
-
-            log.info("payload= {}", payload);
-            String token = JWTUtils.sign(JsonUtils.toJson(payload));
-            redisTemplate.opsForValue().set(principal.getUsername(), token, 10, TimeUnit.MINUTES);
-            httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            httpServletResponse.setHeader("Authorization", token);
-            httpServletResponse.getWriter().write(JsonUtils.toJson(RestResult.success()));
-        };
     }
 
     private AuthenticationFailureHandler failureHandler() {

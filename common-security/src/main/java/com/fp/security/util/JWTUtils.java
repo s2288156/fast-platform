@@ -1,5 +1,6 @@
-package com.fp.security.config;
+package com.fp.security.util;
 
+import com.fp.security.JWTProperties;
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.ex.SysException;
 import com.fp.tool.secure.SecureUtil;

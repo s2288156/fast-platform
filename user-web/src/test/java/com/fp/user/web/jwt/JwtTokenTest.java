@@ -1,6 +1,6 @@
 package com.fp.user.web.jwt;
 
-import com.fp.security.config.JWTUtils;
+import com.fp.security.util.JWTUtils;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;

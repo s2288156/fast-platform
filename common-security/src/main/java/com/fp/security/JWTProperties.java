@@ -1,4 +1,4 @@
-package com.fp.security.config;
+package com.fp.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
