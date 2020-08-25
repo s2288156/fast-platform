@@ -37,15 +37,18 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String bearerToken = resolveToken(httpServletRequest);
-        if (StringUtils.isNotBlank(bearerToken) && JWTUtils.verify(bearerToken)) {
-            String payload = JWTUtils.getPayload(bearerToken);
-            JwtPayload jwtPayload = JsonUtils.fromJson(payload, JwtPayload.class);
-            UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(null, null, AuthorityUtils.commaSeparatedStringToAuthorityList(jwtPayload.getRoles()));
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        try {
+            if (StringUtils.isNotBlank(bearerToken) && JWTUtils.verify(bearerToken)) {
+                String payload = JWTUtils.getPayload(bearerToken);
+                JwtPayload jwtPayload = JsonUtils.fromJson(payload, JwtPayload.class);
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(null, null, AuthorityUtils.commaSeparatedStringToAuthorityList(jwtPayload.getRoles()));
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+        } catch (Exception e) {
+            log.error("JWTAuthenticationFilter: {}", e.getStackTrace());
         }
-
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 

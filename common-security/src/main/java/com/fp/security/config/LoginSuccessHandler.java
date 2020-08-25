@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,16 +35,26 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         User principal = (User) authentication.getPrincipal();
-        Collection<GrantedAuthority> authorities = principal.getAuthorities();
-        log.info("authority = {}", authorities);
-        JwtPayload payload = new JwtPayload();
-        payload.setRolesForAuthority(authorities);
-        String token = JWTUtils.sign(JsonUtils.toJson(payload));
-        log.warn("token = {}", token);
-        redisTemplate.opsForValue().set(principal.getUsername(), token, 10, TimeUnit.MINUTES);
+        JwtPayload payload = assembleForUser(principal);
+
+        String token = payload.jwtSign();
+        String accessToken = UUID.randomUUID().toString();
+
+        redisTemplate.opsForValue().set(accessToken, token, 10, TimeUnit.MINUTES);
+
         httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        httpServletResponse.setHeader("Authorization", token);
+        httpServletResponse.setHeader("accessToken", accessToken);
         httpServletResponse.getWriter().write(JsonUtils.toJson(RestResult.success()));
+    }
+
+    private JwtPayload assembleForUser(User user) {
+        Collection<GrantedAuthority> authorities = user.getAuthorities();
+        log.info("authorities = {}", authorities);
+
+        JwtPayload payload = new JwtPayload();
+        payload.setRolesForAuthority(authorities);
+        payload.setUsername(user.getUsername());
+        return payload;
     }
 }
