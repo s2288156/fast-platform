@@ -1,13 +1,12 @@
 package com.fp.security.config;
 
 import com.fp.security.domain.JwtPayload;
-import com.fp.security.util.JWTUtils;
 import com.fp.tool.RestResult;
 import com.fp.tool.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
@@ -40,7 +39,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         String token = payload.jwtSign();
         String accessToken = UUID.randomUUID().toString();
 
-        redisTemplate.opsForValue().set(accessToken, token, 10, TimeUnit.MINUTES);
+        stringRedisTemplate.opsForValue().set(accessToken, token, 10, TimeUnit.MINUTES);
 
         httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);

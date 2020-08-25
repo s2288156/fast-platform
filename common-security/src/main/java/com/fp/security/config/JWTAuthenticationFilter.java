@@ -6,7 +6,7 @@ import com.fp.tool.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,14 +32,20 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        String bearerToken = resolveToken(httpServletRequest);
+        String accessToken = resolveToken(httpServletRequest);
+
+        if (StringUtils.isBlank(accessToken)) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
         try {
-            if (StringUtils.isNotBlank(bearerToken) && JWTUtils.verify(bearerToken)) {
-                String payload = JWTUtils.getPayload(bearerToken);
+            String jwt = stringRedisTemplate.opsForValue().get(accessToken);
+            if (JWTUtils.verify(jwt)) {
+                String payload = JWTUtils.getPayload(jwt);
                 JwtPayload jwtPayload = JsonUtils.fromJson(payload, JwtPayload.class);
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(null, null, AuthorityUtils.commaSeparatedStringToAuthorityList(jwtPayload.getRoles()));
@@ -47,7 +53,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         } catch (Exception e) {
-            log.error("JWTAuthenticationFilter: {}", e.getStackTrace());
+            log.error("JWTAuthenticationFilter:", e);
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
