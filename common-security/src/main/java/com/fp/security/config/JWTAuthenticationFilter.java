@@ -44,7 +44,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
         try {
             String jwt = stringRedisTemplate.opsForValue().get(accessToken);
-            if (JWTUtils.verify(jwt)) {
+            if (StringUtils.isNotBlank(jwt) && JWTUtils.verify(jwt)) {
                 String payload = JWTUtils.getPayload(jwt);
                 JwtPayload jwtPayload = JsonUtils.fromJson(payload, JwtPayload.class);
                 UsernamePasswordAuthenticationToken authenticationToken =
