@@ -13,6 +13,7 @@
         <module>gateway</module>
         <module>auth-server</module>
         <module>common-security</module>
+        <module>common-web</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
