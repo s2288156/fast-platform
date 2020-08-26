@@ -4,6 +4,7 @@ import com.fp.tool.RestResult;
 import com.fp.tool.ex.BizException;
 import com.fp.tool.ex.ResultCodeEnum;
 import com.fp.tool.ex.SysException;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,19 +56,19 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(RestResult.error(ResultCodeEnum.SYS_EXECUTE_ERROR));
     }
 
-//    @ExceptionHandler(FeignException.class)
-//    public ResponseEntity<?> handleFeignException(FeignException ex) {
-//        log.error("feign调用异常: {}", ex.getMessage());
-//        if (ex.responseBody().isPresent()) {
-//            return ResponseEntity
-//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .contentType(MediaType.APPLICATION_JSON)
-//                    .body(new String(ex.responseBody().get().array()));
-//        }
-//        return ResponseEntity
-//                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                .body(RestResult.error(ResultCodeEnum.SYS_EXECUTE_ERROR));
-//    }
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<?> handleFeignException(FeignException ex) {
+        log.error("feign调用异常: {}", ex.getMessage());
+        if (ex.responseBody().isPresent()) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new String(ex.responseBody().get().array()));
+        }
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(RestResult.error(ResultCodeEnum.SYS_EXECUTE_ERROR));
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleParamNotValidException(MethodArgumentNotValidException ex) {
