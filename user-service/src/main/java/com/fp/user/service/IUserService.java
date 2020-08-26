@@ -24,10 +24,13 @@ public interface IUserService {
      */
     boolean existForUsername(String username);
 
+
+
     /**
      * 为用户添加角色信息
      *
      * @param roleIdList 角色id
+     * @param userId     user主键id
      * @return 增加成功条数
      */
     int addRoles(List<String> roleIdList, String userId);

@@ -1,11 +1,5 @@
 package com.fp.auth.controller;
 
-import com.fp.tool.RestResult;
-import com.fp.user.client.IAuthorizationClient;
-import com.fp.user.client.domain.dto.LoginDTO;
-import com.fp.user.client.domain.dto.LoginResultDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,12 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthenticationController {
 
-    @Autowired
-    private IAuthorizationClient authorizationClient;
-
-    @PostMapping("/login")
-    RestResult<LoginResultDTO> login(LoginDTO loginDTO) {
-        return RestResult.success(authorizationClient.login(loginDTO));
-    }
 
 }
