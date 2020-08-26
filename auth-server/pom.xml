@@ -38,6 +38,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.fp</groupId>
             <artifactId>tool-lib</artifactId>
             <version>${tool-lib.version}</version>
@@ -45,14 +55,8 @@
 
         <dependency>
             <groupId>com.fp</groupId>
-            <artifactId>user-client</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fp</groupId>
             <artifactId>common-security</artifactId>
-            <version>1.0.0</version>
+            <version>${parent.version}</version>
         </dependency>
     </dependencies>
 </project>
