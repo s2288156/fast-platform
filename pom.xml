@@ -14,6 +14,7 @@
         <module>auth-server</module>
         <module>common-security</module>
         <module>common-web</module>
+        <module>common-mybatis</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

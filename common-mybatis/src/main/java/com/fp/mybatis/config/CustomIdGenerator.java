@@ -1,4 +1,4 @@
-package com.fp.user.dao.config;
+package com.fp.mybatis.config;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.fp.tool.util.IdWorker;
