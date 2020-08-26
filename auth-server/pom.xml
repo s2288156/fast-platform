@@ -43,14 +43,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.nimbusds</groupId>
-            <artifactId>nimbus-jose-jwt</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.fp</groupId>
-            <artifactId>tool-lib</artifactId>
-            <version>${tool-lib.version}</version>
+            <artifactId>common-mybatis</artifactId>
+            <version>${parent.version}</version>
         </dependency>
 
         <dependency>
