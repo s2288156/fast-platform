@@ -51,6 +51,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public int addRoles(List<String> roleIdList, String userId) {
+        UserDO userDO = userMapper.selectById(userId);
+        if (userDO == null) {
+            throw new BizException(ResultCodeEnum.USERNAME_NOT_EXISTS);
+        }
         if (!roleService.existRoles(roleIdList)) {
             throw new BizException(ResultCodeEnum.INVALID_INPUT);
         }
