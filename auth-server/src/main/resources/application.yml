@@ -2,7 +2,7 @@ spring:
   application:
     name: auth-server
   datasource:
-    url: jdbc:mysql://org.local.com:3306/db_user?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://org.local.com:3306/db_auth?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123123
   lifecycle:
