@@ -19,6 +19,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author wcy
@@ -37,7 +40,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String accessToken = resolveToken(httpServletRequest);
-
+        requestDebugLog(httpServletRequest);
         if (StringUtils.isBlank(accessToken)) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;
@@ -56,6 +59,18 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             log.error("JWTAuthenticationFilter:", e);
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
+    }
+
+    private void requestDebugLog(HttpServletRequest request) {
+        // request body 参数获取
+        Map<String, String> header = new HashMap<>(64);
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String name = headerNames.nextElement();
+            header.put(name, request.getHeader(name));
+        }
+
+        log.info("header: {}", header);
     }
 
     /**
