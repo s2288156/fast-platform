@@ -11,3 +11,5 @@ spring:
           uri: lb://auth-server
           predicates:
             - Path=/auth/**
+server:
+  port: 18080
