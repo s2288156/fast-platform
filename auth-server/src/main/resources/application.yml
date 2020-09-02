@@ -25,6 +25,10 @@ management:
   endpoint:
     health:
       show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
