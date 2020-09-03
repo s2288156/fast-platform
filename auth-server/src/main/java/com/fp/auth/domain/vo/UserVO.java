@@ -1,6 +1,7 @@
 package com.fp.auth.domain.vo;
 
 
+import com.fp.auth.domain.bo.UserBO;
 import com.fp.auth.domain.bo.UserRolesBO;
 import com.fp.auth.enums.SexEnum;
 import lombok.Data;
@@ -53,6 +54,12 @@ public class UserVO implements Serializable {
             }).collect(Collectors.toList());
             userVO.setRoleList(roleVOS);
         }
+        return userVO;
+    }
+
+    public static UserVO assembleFor(UserBO userBO) {
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(userBO, userVO);
         return userVO;
     }
 }

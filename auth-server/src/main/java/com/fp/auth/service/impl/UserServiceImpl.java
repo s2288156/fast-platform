@@ -3,11 +3,13 @@ package com.fp.auth.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fp.auth.dao.mapper.UserMapper;
 import com.fp.auth.dao.mapper.UserRoleMapper;
+import com.fp.auth.domain.bo.UserBO;
 import com.fp.auth.domain.bo.UserRolesBO;
 import com.fp.auth.domain.dataobject.RoleDO;
 import com.fp.auth.domain.dataobject.UserDO;
 import com.fp.auth.domain.dataobject.UserRoleDO;
 import com.fp.auth.domain.dto.UserDTO;
+import com.fp.auth.domain.form.UserUpdate;
 import com.fp.auth.service.IRoleService;
 import com.fp.auth.service.IUserService;
 import com.fp.tool.ex.BizException;
@@ -86,6 +88,13 @@ public class UserServiceImpl implements IUserService {
             userRolesBO = UserRolesBO.assembleFor(userDO, userRoles);
         }
         return userRolesBO;
+    }
+
+    @Override
+    public UserBO update(UserUpdate userUpdate) {
+        userMapper.updateById(userUpdate.convert2DO());
+        UserDO userDO = userMapper.selectById(userUpdate.getId());
+        return UserBO.assembleFor(userDO);
     }
 
     /**

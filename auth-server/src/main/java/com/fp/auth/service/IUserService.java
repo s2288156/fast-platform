@@ -1,8 +1,11 @@
 package com.fp.auth.service;
 
 
+import com.fp.auth.domain.bo.UserBO;
 import com.fp.auth.domain.bo.UserRolesBO;
 import com.fp.auth.domain.dto.UserDTO;
+import com.fp.auth.domain.form.UserUpdate;
+
 import java.util.List;
 
 /**
@@ -40,4 +43,6 @@ public interface IUserService {
      * @return
      */
     UserRolesBO detailById(String id);
+
+    UserBO update(UserUpdate userUpdate);
 }

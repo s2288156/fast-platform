@@ -1,6 +1,9 @@
 package com.fp.auth.domain.bo;
 
+import com.fp.auth.domain.dataobject.UserDO;
+import com.fp.auth.enums.SexEnum;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @author wcy
@@ -29,6 +32,12 @@ public class UserBO {
     /**
      * 性别
      **/
-    private String sex;
+    private SexEnum sex;
+
+    public static UserBO assembleFor(UserDO userDO) {
+        UserBO userBO = new UserBO();
+        BeanUtils.copyProperties(userDO, userBO);
+        return userBO;
+    }
 
 }

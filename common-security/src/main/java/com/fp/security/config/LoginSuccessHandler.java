@@ -39,7 +39,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         String token = payload.jwtSign();
         String accessToken = UUID.randomUUID().toString();
 
-        stringRedisTemplate.opsForValue().set(accessToken, token, 10, TimeUnit.MINUTES);
+        stringRedisTemplate.opsForValue().set(accessToken, token, 6, TimeUnit.HOURS);
 
         httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
