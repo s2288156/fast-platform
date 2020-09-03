@@ -3,6 +3,8 @@ package com.fp.auth.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fp.auth.dao.mapper.UserMapper;
 import com.fp.auth.dao.mapper.UserRoleMapper;
+import com.fp.auth.domain.bo.UserRolesBO;
+import com.fp.auth.domain.dataobject.RoleDO;
 import com.fp.auth.domain.dataobject.UserDO;
 import com.fp.auth.domain.dataobject.UserRoleDO;
 import com.fp.auth.domain.dto.UserDTO;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -71,6 +74,18 @@ public class UserServiceImpl implements IUserService {
             }
         });
         return num.get();
+    }
+
+    @Override
+    public UserRolesBO detailById(String id) {
+        UserRolesBO userRolesBO = null;
+        Optional<UserDO> optionalUserDO = Optional.ofNullable(userMapper.selectById(id));
+        if (optionalUserDO.isPresent()) {
+            UserDO userDO = optionalUserDO.get();
+            List<RoleDO> userRoles = roleService.getUserRoles(userDO.getId());
+            userRolesBO = UserRolesBO.assembleFor(userDO, userRoles);
+        }
+        return userRolesBO;
     }
 
     /**

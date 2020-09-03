@@ -24,4 +24,9 @@ public class RoleServiceImpl implements IRoleService {
         Integer rolesCount = roleMapper.selectCount(new LambdaQueryWrapper<RoleDO>().in(RoleDO::getId, roleIds));
         return rolesCount == roleIds.size();
     }
+
+    @Override
+    public List<RoleDO> getUserRoles(String userId) {
+        return roleMapper.listUserRoles(userId);
+    }
 }

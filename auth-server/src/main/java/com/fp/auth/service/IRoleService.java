@@ -1,5 +1,7 @@
 package com.fp.auth.service;
 
+import com.fp.auth.domain.dataobject.RoleDO;
+
 import java.util.List;
 
 /**
@@ -8,4 +10,6 @@ import java.util.List;
 public interface IRoleService {
 
     boolean existRoles(List<String> roleIds);
+
+    List<RoleDO> getUserRoles(String userId);
 }

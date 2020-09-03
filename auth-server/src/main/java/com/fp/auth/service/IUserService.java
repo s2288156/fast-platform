@@ -1,6 +1,7 @@
 package com.fp.auth.service;
 
 
+import com.fp.auth.domain.bo.UserRolesBO;
 import com.fp.auth.domain.dto.UserDTO;
 import java.util.List;
 
@@ -24,8 +25,6 @@ public interface IUserService {
      */
     boolean existForUsername(String username);
 
-
-
     /**
      * 为用户添加角色信息
      *
@@ -35,4 +34,10 @@ public interface IUserService {
      */
     int addRoles(List<String> roleIdList, String userId);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
+    UserRolesBO detailById(String id);
 }
