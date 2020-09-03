@@ -5,6 +5,7 @@ import com.fp.auth.enums.SexEnum;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author wcy
@@ -34,4 +35,6 @@ public class UserVO implements Serializable {
      * 0 - 男，1 - 女
      **/
     private SexEnum sex;
+
+    private List<RoleVO> roleList;
 }
