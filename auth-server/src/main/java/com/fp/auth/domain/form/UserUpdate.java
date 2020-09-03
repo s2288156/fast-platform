@@ -35,11 +35,7 @@ public class UserUpdate implements Serializable {
     /**
      * 0 - 男，1 - 女
      **/
-    private String sex;
-
-    public SexEnum getSex() {
-        return SexEnum.valueOf(this.sex);
-    }
+    private SexEnum sex;
 
     public UserDO convert2DO() {
         UserDO userDO = new UserDO();

@@ -33,6 +33,7 @@ mybatis-plus:
   configuration:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    local-cache-scope: statement
 # ============= JWT RSA 公私钥 ===============
 jwt:
   rsa:
