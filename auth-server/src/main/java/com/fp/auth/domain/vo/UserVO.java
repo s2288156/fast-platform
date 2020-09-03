@@ -2,11 +2,10 @@ package com.fp.auth.domain.vo;
 
 
 import com.fp.auth.domain.bo.UserBO;
-import com.fp.auth.domain.bo.UserRolesBO;
+import com.fp.auth.domain.dataobject.RoleDO;
 import com.fp.auth.enums.SexEnum;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -45,17 +44,11 @@ public class UserVO implements Serializable {
 
     private List<String> roleNames;
 
-    public static UserVO assembleFor(UserRolesBO userRolesBO) {
+    public static UserVO assembleFor(UserBO userBO, List<RoleDO> roleList) {
         UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(userRolesBO, userVO);
-        if (!CollectionUtils.isEmpty(userRolesBO.getRoleList())) {
-            List<RoleVO> roleVOS = userRolesBO.getRoleList().stream().map(roleDO -> {
-                RoleVO roleVO = new RoleVO();
-                BeanUtils.copyProperties(roleDO, roleVO);
-                return roleVO;
-            }).collect(Collectors.toList());
-            userVO.setRoleList(roleVOS);
-        }
+        BeanUtils.copyProperties(userBO, userVO);
+        List<String> roleNameList = roleList.stream().map(RoleDO::getName).collect(Collectors.toList());
+        userVO.setRoleNames(roleNameList);
         return userVO;
     }
 

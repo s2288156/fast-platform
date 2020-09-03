@@ -2,7 +2,6 @@ package com.fp.auth.service;
 
 
 import com.fp.auth.domain.bo.UserBO;
-import com.fp.auth.domain.bo.UserRolesBO;
 import com.fp.auth.domain.dto.UserDTO;
 import com.fp.auth.domain.form.UserUpdate;
 
@@ -36,13 +35,6 @@ public interface IUserService {
      * @return 增加成功条数
      */
     int addRoles(List<String> roleIdList, String userId);
-
-    /**
-     *
-     * @param id
-     * @return
-     */
-    UserRolesBO detailById(String id);
 
     UserBO update(UserUpdate userUpdate);
 
