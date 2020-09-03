@@ -43,6 +43,8 @@ public class UserVO implements Serializable {
 
     private List<RoleVO> roleList;
 
+    private List<String> roleNames;
+
     public static UserVO assembleFor(UserRolesBO userRolesBO) {
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(userRolesBO, userVO);

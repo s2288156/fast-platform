@@ -45,4 +45,6 @@ public interface IUserService {
     UserRolesBO detailById(String id);
 
     UserBO update(UserUpdate userUpdate);
+
+    UserBO selectUserById(String id);
 }

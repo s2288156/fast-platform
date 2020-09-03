@@ -8,7 +8,6 @@ import com.fp.auth.service.IUserService;
 import com.fp.tool.RestResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**

@@ -15,6 +15,7 @@ import com.fp.auth.service.IUserService;
 import com.fp.tool.ex.BizException;
 import com.fp.tool.ex.ResultCodeEnum;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -95,6 +96,17 @@ public class UserServiceImpl implements IUserService {
         userMapper.updateById(userUpdate.convert2DO());
         UserDO userDO = userMapper.selectById(userUpdate.getId());
         return UserBO.assembleFor(userDO);
+    }
+
+    @Override
+    public UserBO selectUserById(String id) {
+        Optional<UserDO> optionalUserDO = Optional.ofNullable(userMapper.selectById(id));
+        if (optionalUserDO.isPresent()) {
+            UserBO userBO = new UserBO();
+            BeanUtils.copyProperties(optionalUserDO.get(), userBO);
+            return userBO;
+        }
+        throw new BizException(ResultCodeEnum.USER_NOT_EXISTS);
     }
 
     /**

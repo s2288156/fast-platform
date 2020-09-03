@@ -15,8 +15,6 @@ public class UserBO {
 
     private String email;
 
-    private String password;
-
     private String phone;
 
     /**
