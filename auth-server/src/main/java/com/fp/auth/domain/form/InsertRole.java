@@ -22,7 +22,7 @@ public class InsertRole implements Serializable {
      **/
     private String description;
 
-    public RoleDO convert2DO() {
+    public RoleDO convert2RoleDO() {
         RoleDO roleDO = new RoleDO();
         BeanUtils.copyProperties(this, roleDO);
         return roleDO;

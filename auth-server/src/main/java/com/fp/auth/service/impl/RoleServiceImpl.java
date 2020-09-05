@@ -39,7 +39,7 @@ public class RoleServiceImpl implements IRoleService {
         if (existForName(role.getName())) {
             throw new BizException(ResultCodeEnum.ROLE_EXIST);
         }
-        return roleMapper.insert(role.convert2DO());
+        return roleMapper.insert(role.convert2RoleDO());
     }
 
     private boolean existForName(String name) {
