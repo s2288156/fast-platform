@@ -2,6 +2,8 @@ package com.fp.auth.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fp.mybatis.base.PageInfo;
 import com.fp.auth.dao.mapper.RoleMapper;
 import com.fp.auth.domain.dataobject.RoleDO;
 import com.fp.auth.domain.form.InsertRole;
@@ -40,6 +42,12 @@ public class RoleServiceImpl implements IRoleService {
             throw new BizException(ResultCodeEnum.ROLE_EXIST);
         }
         return roleMapper.insert(role.convert2DO());
+    }
+
+    @Override
+    public Page<RoleDO> pageRoles(PageInfo pageInfo) {
+
+        return null;
     }
 
     private boolean existForName(String name) {
