@@ -2,12 +2,12 @@ package com.fp.auth.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fp.auth.domain.dataobject.RoleDO;
-import com.fp.auth.domain.vo.RoleVO;
-import com.fp.mybatis.base.PageInfo;
 import com.fp.auth.domain.form.InsertRole;
+import com.fp.auth.domain.vo.RoleVO;
 import com.fp.auth.service.IRoleService;
-import com.fp.tool.RestResult;
+import com.fp.mybatis.base.PageInfo;
 import com.fp.mybatis.base.PageResult;
+import com.fp.tool.RestResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
