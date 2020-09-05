@@ -46,8 +46,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public Page<RoleDO> pageRoles(PageInfo pageInfo) {
-
-        return null;
+        return roleMapper.pageRoles(pageInfo);
     }
 
     private boolean existForName(String name) {

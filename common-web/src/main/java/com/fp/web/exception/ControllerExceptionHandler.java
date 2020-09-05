@@ -1,4 +1,4 @@
-package com.fp.exception;
+package com.fp.web.exception;
 
 import com.fp.tool.RestResult;
 import com.fp.tool.ex.BizException;

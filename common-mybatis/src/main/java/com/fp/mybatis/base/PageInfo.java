@@ -31,10 +31,10 @@ public class PageInfo implements Serializable {
     private List<String> sortList;
 
     public <T> Page<T> convert2Page(Class<T> clazz) {
-        return defaultPage(clazz);
+        return defaultPage();
     }
 
-    private <T> Page<T> defaultPage(Class<T> clazz) {
+    private <T> Page<T> defaultPage() {
         return new Page<T>(current, size).addOrder(OrderItem.desc(ColumnName.UPDATE_TIME));
     }
 

@@ -1,6 +1,6 @@
 package com.fp.auth.config;
 
-import com.fp.config.LogInterceptor;
+import com.fp.web.config.LogInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
