@@ -1,3 +1,4 @@
+db_name: db_auth
 spring:
   application:
     name: auth-server
@@ -14,24 +15,20 @@ spring:
         extension-configs:
           - data-id: base-config.yml
             group: BASE
-            refresh: true
-  datasource:
-    url: jdbc:mysql://org.local.com:3306/db_auth?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: 123123
-  redis:
-    cluster:
-      nodes: 192.168.30.214:7000,192.168.30.214:7001,192.168.30.214:7002,192.168.30.214:7003,192.168.30.214:7004,192.168.30.214:7005
+            refresh: false
+          - data-id: mysql.yml
+            group: BASE
+            refresh: false
+          - data-id: redis.yml
+            group: BASE
+            refresh: false
+
+
 server:
   port: 18000
   servlet:
     context-path: /auth
 
-mybatis-plus:
-  configuration:
-    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    local-cache-scope: statement
 # ============= JWT RSA 公私钥 ===============
 jwt:
   rsa:
