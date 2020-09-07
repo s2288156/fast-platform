@@ -1,10 +1,10 @@
 # fast-platform
 
-#### 介绍
+### 介绍
 
 ![](https://imgkr2.cn-bj.ufileos.com/8a312123-9219-46fb-96ed-39a961875755.png?UCloudPublicKey=TOKEN_8d8b72be-579a-4e83-bfd0-5f6ce1546f13&Signature=F%2FDacd6jCoyTjv1yw6SLcDVk0qw%3D&Expires=1596265574)
 
-#### 软件架构
+### 软件架构
 
 1. Maven 3.6.x
 2. SpringBoot 2.3.x
@@ -15,10 +15,13 @@
 7. 微服务调用 [OpenFeign](https://docs.spring.io/spring-cloud-openfeign/docs/2.2.4.RELEASE/reference/html/)
 8. 数据库版本迁移 [Flyway](https://flywaydb.org/)
 
-#### 安装教程
+### 安装教程
+
+#### 日志配置文件
 
 
-#### 使用说明
+
+### 使用说明
 
 构建打包命令：
 ```shell script
@@ -29,7 +32,7 @@ mvn clean package -pl user-web -am
 # 杀掉进程
 ps -ef | grep user-web.jar | grep -v grep | awk '{print $2}' | xargs kill -15
 # 后台启动
-nohup java -jar -Dserver.port=12000 .\user-web\build\libs\user-web.jar > /dev/null &
+nohup java -jar -Dserver.port=12000 user-web.jar > /dev/null &
 
 # ================ docker启动 ================
 
@@ -44,7 +47,7 @@ docker-compose down --remove-orphans
 
 ```
 
-#### 参与贡献
+### 参与贡献
 
 1.  Fork 本仓库
 2.  新建 Feat_xxx 分支
