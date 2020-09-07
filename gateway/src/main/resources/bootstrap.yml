@@ -1,11 +1,9 @@
-db_name: db_auth
-
 server:
-  port: 18000
+  port: 18080
 
 spring:
   application:
-    name: auth-server
+    name: gateway
   flyway:
     clean-disabled: true  # 是否禁用数据库清理，默认false不禁用，危险操作，统一设置为true
   cloud:
@@ -20,12 +18,9 @@ spring:
           - data-id: base-config.yml
             group: BASE
             refresh: false
-          - data-id: mysql.yml
-            group: BASE
-            refresh: false
           - data-id: redis.yml
             group: BASE
             refresh: false
-          - data-id: auth-common.yml
+          - data-id: gateway.yml
             group: SERVER
             refresh: true
