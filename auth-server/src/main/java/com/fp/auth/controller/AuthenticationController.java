@@ -10,7 +10,6 @@ import com.fp.auth.service.IUserService;
 import com.fp.tool.RestResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +31,6 @@ public class AuthenticationController {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     /**
      * 用户注册
      *
@@ -45,7 +41,7 @@ public class AuthenticationController {
     public RestResult<?> register(@Validated Register register) {
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(register, userDTO);
-        userDTO.setPassword(passwordEncoder.encode(register.getPassword()));
+
         userService.register(userDTO);
         return RestResult.success();
     }
@@ -61,7 +57,7 @@ public class AuthenticationController {
         return RestResult.success(number);
     }
 
-//    @PreAuthorize("hasAnyAuthority('admin')")
+    //    @PreAuthorize("hasAnyAuthority('admin')")
     @GetMapping("/all")
     public RestResult<List<UserVO>> all() {
         List<UserDO> userDOList = authorizationService.allUser();
