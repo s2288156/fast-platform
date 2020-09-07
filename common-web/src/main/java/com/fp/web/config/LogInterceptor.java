@@ -32,7 +32,7 @@ public class LogInterceptor implements HandlerInterceptor {
         MDC.clear();
         MDC.put("threadId", UUID.randomUUID().toString().replaceAll("-", ""));
 
-        log.info("请求路径: {}, accessToken = {}", request.getRequestURI(), request.getHeader("accessToken"));
+        log.info("请求路径: {}, Authorization = {}", request.getRequestURI(), request.getHeader("Authorization"));
         requestDebugLog(request);
         return true;
     }

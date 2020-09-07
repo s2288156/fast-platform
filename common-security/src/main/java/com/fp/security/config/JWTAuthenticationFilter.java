@@ -70,7 +70,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             header.put(name, request.getHeader(name));
         }
 
-        log.info("header: {}", header);
+//        log.info("header: {}", header);
     }
 
     /**
