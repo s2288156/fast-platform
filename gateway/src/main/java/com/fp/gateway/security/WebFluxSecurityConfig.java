@@ -24,9 +24,9 @@ public class WebFluxSecurityConfig {
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .authenticationSuccessHandler(new AuthenticationSuccessHandler())
-                .authenticationFailureHandler(null)
+                .authenticationFailureHandler(new AuthenticationFailHandler())
                 .and().exceptionHandling()
-                .authenticationEntryPoint(null)
+                .authenticationEntryPoint(new CustomHttpBasicServerAuthenticationEntryPoint())
                 .and().csrf().disable()
                 .logout().disable();
 
