@@ -24,6 +24,7 @@ public class SecurityUserDetailService implements ReactiveUserDetailsService {
 
     @Override
     public Mono<UserDetails> findByUsername(String username) {
+
         AuthUserDTO authUserDTO = userApi.selectAuthUser(username);
         List<SimpleGrantedAuthority> simpleGrantedAuthorities = authUserDTO.getRoleNames().stream()
                 .map(SimpleGrantedAuthority::new)
