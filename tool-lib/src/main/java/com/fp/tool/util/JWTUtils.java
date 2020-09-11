@@ -20,7 +20,10 @@ public class JWTUtils {
 
     private static RSASSAVerifier verifier;
 
+
+
     public JWTUtils(String privateKey, String publicKey) {
+
         final PrivateKey priKey = SecureUtil.generatePrivateKey(SignAlgorithm.SHA1withRSA, privateKey);
         final RSAPublicKey pubKey = (RSAPublicKey) SecureUtil.generatePublicKey(SignAlgorithm.SHA1withRSA, publicKey);
         signer = new RSASSASigner(priKey);
