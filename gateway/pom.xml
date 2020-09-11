@@ -43,6 +43,12 @@
             <version>${tool-lib.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.fp</groupId>
+            <artifactId>auth-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
