@@ -34,7 +34,7 @@ public class AuthenticationSuccessHandler extends WebFilterChainServerAuthentica
     @Override
     public Mono<Void> onAuthenticationSuccess(WebFilterExchange webFilterExchange, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        JwtPayload payload = assembleForUser(user);
+        JwtPayload payload = JwtPayload.assembleForUser(user);
 
         // 生成jwt，并放入accessToken中，redis中做缓存
         String jwt = payload.jwtSign();
@@ -49,13 +49,4 @@ public class AuthenticationSuccessHandler extends WebFilterChainServerAuthentica
         return response.writeWith(Mono.just(bodyDataBuffer));
     }
 
-    private JwtPayload assembleForUser(User user) {
-        Collection<GrantedAuthority> authorities = user.getAuthorities();
-        log.info("authorities = {}", authorities);
-
-        JwtPayload payload = new JwtPayload();
-        payload.setRolesForAuthority(authorities);
-        payload.setUsername(user.getUsername());
-        return payload;
-    }
 }
