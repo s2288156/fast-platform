@@ -31,6 +31,11 @@ public class AuthenticationController {
     @Autowired
     private IUserService userService;
 
+    @PostMapping("/login")
+    public RestResult<?> login() {
+        return RestResult.success();
+    }
+
     /**
      * 用户注册
      *

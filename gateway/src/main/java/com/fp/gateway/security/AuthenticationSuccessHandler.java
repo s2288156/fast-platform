@@ -1,7 +1,12 @@
 package com.fp.gateway.security;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fp.tool.RestResult;
+import com.fp.tool.ex.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -43,7 +48,16 @@ public class AuthenticationSuccessHandler extends WebFilterChainServerAuthentica
         HttpHeaders headers = response.getHeaders();
         headers.set(HttpHeaders.AUTHORIZATION, accessToken);
 
-        return super.onAuthenticationSuccess(webFilterExchange, authentication);
+        ObjectMapper objectMapper = new ObjectMapper();
+        byte[] dataBytes = {};
+        try {
+            dataBytes = objectMapper.writeValueAsBytes(RestResult.success());
+        } catch (JsonProcessingException jsonProcessingException) {
+            log.error("convert to bytes ex", jsonProcessingException);
+        }
+        DataBuffer bodyDataBuffer = response.bufferFactory().wrap(dataBytes);
+
+        return response.writeWith(Mono.just(bodyDataBuffer));
     }
 
     private JwtPayload assembleForUser(User user) {
