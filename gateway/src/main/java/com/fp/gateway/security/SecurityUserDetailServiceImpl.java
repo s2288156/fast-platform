@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @author wcy
  */
 @Component
-public class SecurityUserDetailService implements ReactiveUserDetailsService {
+public class SecurityUserDetailServiceImpl implements ReactiveUserDetailsService {
 
     @Autowired
     private IUserApi userApi;

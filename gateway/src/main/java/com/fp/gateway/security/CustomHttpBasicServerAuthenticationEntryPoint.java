@@ -1,7 +1,5 @@
 package com.fp.gateway.security;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fp.tool.RestResult;
 import com.fp.tool.ex.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +20,7 @@ public class CustomHttpBasicServerAuthenticationEntryPoint extends HttpBasicServ
     @Override
     public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException e) {
         ServerHttpResponse response = exchange.getResponse();
-        ObjectMapper objectMapper = new ObjectMapper();
-        byte[] dataBytes = {};
-        try {
-            dataBytes = objectMapper.writeValueAsBytes(RestResult.error(ResultCodeEnum.USER_LOGIN_ERROR));
-        } catch (JsonProcessingException jsonProcessingException) {
-            log.error("convert to bytes ex", jsonProcessingException);
-        }
-        DataBuffer bodyDataBuffer = response.bufferFactory().wrap(dataBytes);
+        DataBuffer bodyDataBuffer = WebConfigUtils.getDataBuffer(response, RestResult.error(ResultCodeEnum.USER_LOGIN_ERROR));
         return response.writeWith(Mono.just(bodyDataBuffer));
     }
 }

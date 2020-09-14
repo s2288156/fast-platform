@@ -1,9 +1,6 @@
 package com.fp.gateway.security;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fp.tool.RestResult;
-import com.fp.tool.ex.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -48,15 +45,7 @@ public class AuthenticationSuccessHandler extends WebFilterChainServerAuthentica
         HttpHeaders headers = response.getHeaders();
         headers.set(HttpHeaders.AUTHORIZATION, accessToken);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        byte[] dataBytes = {};
-        try {
-            dataBytes = objectMapper.writeValueAsBytes(RestResult.success());
-        } catch (JsonProcessingException jsonProcessingException) {
-            log.error("convert to bytes ex", jsonProcessingException);
-        }
-        DataBuffer bodyDataBuffer = response.bufferFactory().wrap(dataBytes);
-
+        DataBuffer bodyDataBuffer = WebConfigUtils.getDataBuffer(response, RestResult.success());
         return response.writeWith(Mono.just(bodyDataBuffer));
     }
 
