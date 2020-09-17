@@ -8,6 +8,8 @@ import com.fp.auth.domain.vo.UserVO;
 import com.fp.auth.service.IAuthorizationService;
 import com.fp.auth.service.IUserService;
 import com.fp.tool.RestResult;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.KeyPair;
+import java.security.PublicKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +35,16 @@ public class AuthenticationController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private KeyPair keyPair;
+
+    @GetMapping("/rsa/public_key")
+    public RestResult<?> getPublicKey() {
+        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+        RSAKey key = new RSAKey.Builder(publicKey).build();
+        return RestResult.success(new JWKSet(key).toJSONObject());
+    }
 
     @PostMapping("/login")
     public RestResult<?> login() {
