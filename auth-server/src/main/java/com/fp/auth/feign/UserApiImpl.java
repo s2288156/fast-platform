@@ -26,7 +26,7 @@ public class UserApiImpl implements IUserApi {
 
     @Override
     public AuthUserDTO selectAuthUser(String username) {
-        UserDO userDO = userMapper.selectOne(new LambdaQueryWrapper<UserDO>().eq(UserDO::getUsername, "admin"));
+        UserDO userDO = userMapper.selectOne(new LambdaQueryWrapper<UserDO>().eq(UserDO::getUsername, username));
         if (userDO == null) {
             throw new BizException(ResultCodeEnum.USER_LOGIN_ERROR);
         }
