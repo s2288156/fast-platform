@@ -24,7 +24,11 @@ spring:
           - data-id: gateway.yml
             group: SERVER
             refresh: true
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:18080/auth/rsa/public_key'
 # ============= JWT RSA 公私钥 ===============
 jwt:
   rsa:
