@@ -4,9 +4,14 @@ server:
 spring:
   application:
     name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
   flyway:
     clean-disabled: true  # 是否禁用数据库清理，默认false不禁用，危险操作，统一设置为true
-  cloud:
     nacos:
       discovery:
         server-addr: org.local.com:8848
@@ -29,6 +34,11 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: 'http://localhost:18080/auth/rsa/public_key'
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/oauth/token"
 # ============= JWT RSA 公私钥 ===============
 jwt:
   rsa:
