@@ -1,7 +1,7 @@
 package com.fp.gateway.security;
 
 import cn.hutool.json.JSONUtil;
-import com.macro.cloud.api.CommonResult;
+import com.fp.gateway.api.CommonResult;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
