@@ -10,6 +10,7 @@
         <module>common-security</module>
         <module>common-web</module>
         <module>common-mybatis</module>
+        <module>mall-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
