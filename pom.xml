@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.2.RELEASE</version>
+        <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent  from repository -->
     </parent>
     <groupId>com.fp</groupId>
@@ -28,7 +28,7 @@
         <java.version>11</java.version>
         <skipTests>true</skipTests>
         <spring-cloud.version>Hoxton.SR7</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
         <nimbus-jsse-jwt.version>8.19</nimbus-jsse-jwt.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
 
