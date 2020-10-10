@@ -1,0 +1,31 @@
+db_name: db_mall
+
+server:
+  port: 18010
+
+spring:
+  application:
+    name: mall-server
+  flyway:
+    clean-disabled: true  # 是否禁用数据库清理，默认false不禁用，危险操作，统一设置为true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: org.local.com:8848
+      config:
+        server-addr: org.local.com:8848
+        file-extension: yml
+        namespace: dev
+        extension-configs:
+          - data-id: base-config.yml
+            group: BASE
+            refresh: false
+          - data-id: mysql.yml
+            group: BASE
+            refresh: false
+          - data-id: redis.yml
+            group: BASE
+            refresh: false
+          - data-id: mall-common.yml
+            group: SERVER
+            refresh: true

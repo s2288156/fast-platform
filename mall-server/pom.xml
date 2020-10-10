@@ -11,5 +11,17 @@
 
     <artifactId>mall-server</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.fp</groupId>
+            <artifactId>common-mybatis</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.fp</groupId>
+            <artifactId>common-security</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+    </dependencies>
 </project>
