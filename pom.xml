@@ -12,8 +12,8 @@
         <module>common-mybatis</module>
         <module>mall-server</module>
         <module>demo-auth</module>
-        <module>demo-gateway</module>
         <module>demo-foo</module>
+        <module>demo-gateway</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

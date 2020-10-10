@@ -49,6 +49,7 @@ public class SecurityUser implements UserDetails {
         this.setUsername(userDto.getUsername());
         this.setPassword(userDto.getPassword());
         this.setClientId(userDto.getClientId());
+        this.setEnabled(true);
         if (userDto.getRoles() != null) {
             authorities = new ArrayList<>();
             userDto.getRoles().forEach(item -> authorities.add(new SimpleGrantedAuthority(item)));
