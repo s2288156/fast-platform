@@ -24,6 +24,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.fp</groupId>
             <artifactId>tool-lib</artifactId>
             <version>${tool-lib.version}</version>
