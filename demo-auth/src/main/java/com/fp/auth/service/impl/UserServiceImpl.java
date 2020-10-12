@@ -4,6 +4,7 @@ import com.fp.auth.constant.AuthConstant;
 import com.fp.auth.constant.MessageConstant;
 import com.fp.auth.domain.SecurityUser;
 import com.fp.auth.domain.UserDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 /**
  * @author wcy
  */
+@Slf4j
 @Service
 public class UserServiceImpl implements UserDetailsService {
     @Autowired
@@ -48,8 +50,9 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        userDto1.setPassword(passwordEncoder.encode("admin"));
-        userDto2.setPassword(passwordEncoder.encode("admin"));
+        String adminPassword = passwordEncoder.encode("admin");
+        userDto1.setPassword(adminPassword);
+        userDto2.setPassword(adminPassword);
         String clientId = request.getParameter("client_id");
         UserDto userDto;
         if(AuthConstant.ADMIN_CLIENT_ID.equals(clientId)){
