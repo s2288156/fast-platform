@@ -1,5 +1,6 @@
 package com.fp.auth.domain;
 
+import com.fp.tool.domain.UserDto;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

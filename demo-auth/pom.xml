@@ -48,6 +48,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.fp</groupId>
+            <artifactId>tool-lib</artifactId>
+            <version>${tool-lib.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

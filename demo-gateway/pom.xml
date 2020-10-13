@@ -57,6 +57,12 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>com.fp</groupId>
+            <artifactId>tool-lib</artifactId>
+            <version>${tool-lib.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

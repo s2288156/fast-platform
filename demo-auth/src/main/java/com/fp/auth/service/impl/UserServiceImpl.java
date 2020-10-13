@@ -3,7 +3,7 @@ package com.fp.auth.service.impl;
 import com.fp.auth.constant.AuthConstant;
 import com.fp.auth.constant.MessageConstant;
 import com.fp.auth.domain.SecurityUser;
-import com.fp.auth.domain.UserDto;
+import com.fp.tool.domain.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;

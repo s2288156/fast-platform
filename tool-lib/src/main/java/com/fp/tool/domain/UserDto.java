@@ -1,4 +1,4 @@
-package com.fp.auth.domain;
+package com.fp.tool.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
