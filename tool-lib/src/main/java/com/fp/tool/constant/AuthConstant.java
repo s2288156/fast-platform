@@ -24,4 +24,14 @@ public class AuthConstant {
      * JWT存储权限属性
      */
     public static final String AUTHORITY_CLAIM_NAME = "authorities";
+
+    /**
+     * JWT令牌前缀
+     */
+    public static final String JWT_TOKEN_PREFIX = "Bearer ";
+
+    /**
+     * 用户信息Http请求头
+     */
+    public static final String USER_TOKEN_HEADER = "user";
 }

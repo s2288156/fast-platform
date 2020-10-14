@@ -44,11 +44,6 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
     @Autowired
     private IgnoreUrlsConfig ignoreUrlsConfig;
 
-    /**
-     * JWT令牌前缀
-     */
-    String JWT_TOKEN_PREFIX = "Bearer ";
-
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
         ServerHttpRequest request = authorizationContext.getExchange().getRequest();
@@ -67,7 +62,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         if (StringUtils.isBlank(token)) {
             return Mono.just(reject());
         }
-        String realToken = token.replace(JWT_TOKEN_PREFIX, "");
+        String realToken = token.replace(AuthConstant.JWT_TOKEN_PREFIX, "");
 
         // 不同用户体系登录不允许互相访问
         try {
