@@ -1,4 +1,4 @@
-package com.fp.auth.domain;
+package com.fp.tool.domain;
 
 /**
  * 通用返回对象

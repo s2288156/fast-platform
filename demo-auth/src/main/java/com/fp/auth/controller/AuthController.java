@@ -2,7 +2,7 @@ package com.fp.auth.controller;
 
 
 import com.fp.auth.constant.AuthConstant;
-import com.fp.auth.domain.CommonResult;
+import com.fp.tool.domain.CommonResult;
 import com.fp.auth.domain.Oauth2TokenDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

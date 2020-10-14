@@ -1,4 +1,4 @@
-package com.fp.auth.domain;
+package com.fp.tool.domain;
 
 /**
  * 封装API的错误码
