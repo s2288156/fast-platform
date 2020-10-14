@@ -26,6 +26,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fp</groupId>
+            <artifactId>tool-lib</artifactId>
+            <version>${tool-lib.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
