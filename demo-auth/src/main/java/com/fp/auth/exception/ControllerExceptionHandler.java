@@ -1,7 +1,6 @@
 package com.fp.auth.exception;
 
 import com.fp.tool.RestResult;
-import com.fp.tool.ex.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +22,5 @@ public class ControllerExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(RestResult.error(String.valueOf(ex.getHttpErrorCode()), "refresh_token失效")
                 );
-
     }
 }

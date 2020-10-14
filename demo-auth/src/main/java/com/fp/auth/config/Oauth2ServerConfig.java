@@ -43,19 +43,17 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .secret(passwordEncoder.encode("123456"))
                 .scopes("all")
                 .authorizedGrantTypes("password", "refresh_token")
-//                .accessTokenValiditySeconds(3600*24*7)
-                .accessTokenValiditySeconds(30)
-//                .refreshTokenValiditySeconds(3600*24*14)
-                .refreshTokenValiditySeconds(180)
+                .accessTokenValiditySeconds(3600 * 24 * 7)
+                .refreshTokenValiditySeconds(3600 * 24 * 14)
                 .and()
                 .withClient("portal-app")
                 .secret(passwordEncoder.encode("123456"))
                 .scopes("all")
                 .authorizedGrantTypes("password", "refresh_token")
                 // 有效期7天
-                .accessTokenValiditySeconds(3600*24*7)
+                .accessTokenValiditySeconds(3600 * 24 * 7)
                 // 刷新token有效期14天
-                .refreshTokenValiditySeconds(3600*24*14);
+                .refreshTokenValiditySeconds(3600 * 24 * 14);
     }
 
     @Override

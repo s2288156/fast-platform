@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserDetailsService {
         userDto1.setId(1L);
         userDto1.setClientId("admin-app");
         userDto1.setUsername("admin");
-        userDto1.setRoles(Arrays.asList("A", "B", "C"));
+        userDto1.setRoles(Arrays.asList("ADMIN", "B", "C"));
 
         userDto2.setId(2L);
         userDto2.setClientId("portal-app");

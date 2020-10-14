@@ -25,8 +25,9 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -80,8 +81,17 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         }
 
         // 管理端校验权限
-        String roles =(String) redisTemplate.opsForHash().get(AuthConstant.RESOURCE_ROLES_MAP_KEY, uri.getPath());
-        List<String> authorities = new ArrayList<>(Arrays.asList(StringUtils.split(roles, ",")));
+        Map<Object, Object> resourceRolesMap = redisTemplate.opsForHash().entries(AuthConstant.RESOURCE_ROLES_MAP_KEY);
+        Iterator<Object> iterator = resourceRolesMap.keySet().iterator();
+        List<String> authorities = new ArrayList<>();
+        while (iterator.hasNext()) {
+            String pattern = (String) iterator.next();
+            if (pathMatcher.match(pattern, uri.getPath())) {
+                authorities.addAll((ArrayList) resourceRolesMap.get(pattern));
+                Object arg = resourceRolesMap.get(pattern);
+                log.warn("{} <<<<<<<<<<<<<<", arg);
+            }
+        }
         authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());
         return mono
                 .filter(Authentication::isAuthenticated)
