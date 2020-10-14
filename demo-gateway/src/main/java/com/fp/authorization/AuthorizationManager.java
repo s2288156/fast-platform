@@ -76,7 +76,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         }
 
         // 非管理端路径直接放行
-        if (!pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())) {
+        if (!pathMatcher.match(AuthConstant.DEMO_FOO_URL_PATTERN, uri.getPath())) {
             return Mono.just(allow());
         }
 

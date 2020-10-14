@@ -11,9 +11,9 @@ public class AuthConstant {
     public static final String RESOURCE_ROLES_MAP_KEY = "auth:resourceRolesMap";
 
     /**
-     * 后台管理接口路径匹配
+     * 测试demo-foo接口路径匹配
      */
-    public static final String ADMIN_URL_PATTERN = "/demo-foo/**";
+    public static final String DEMO_FOO_URL_PATTERN = "/demo-foo/**";
 
     /**
      * JWT存储权限前缀
